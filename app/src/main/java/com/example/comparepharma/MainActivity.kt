@@ -2,12 +2,14 @@ package com.example.comparepharma
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.comparepharma.data.Pharma
 import com.example.comparepharma.repository.RepositorySingle
 import com.google.android.material.button.MaterialButton
 import java.util.*
+
+const val PARACETAMOL: String = "ПАРАЦЕТАМОЛ"
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,9 +21,27 @@ class MainActivity : AppCompatActivity() {
         recyclerPharma.adapter = adapter
 
         val button = findViewById<MaterialButton>(R.id.button_search)
-        button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                Toast.makeText(this@MainActivity, "Нажата кнопка", Toast.LENGTH_SHORT).show()
+
+        button.setOnClickListener { it ->
+            val data: List<Pharma> = RepositorySingle.getPharmas()
+
+            for (i in data.indices) {
+                when (data[i].name) {
+                    PARACETAMOL -> {
+                        Toast.makeText(
+                            this@MainActivity,
+                            data[i].name + " №" + i,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {
+                        Toast.makeText(
+                            this@MainActivity,
+                            data[i].name,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
         })
     }
