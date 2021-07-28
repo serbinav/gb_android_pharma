@@ -40,4 +40,12 @@ class PharmaAdapter(private val repository: IRepository) :
     override fun getItemCount(): Int {
         return repository.getPharmas().size
     }
+
+    companion object Factory {
+        private val NormalTemp: Float = 36.6F
+
+        fun getInstance(repository: IRepository): PharmaAdapter {
+            return PharmaAdapter(repository)
+        }
+    }
 }
