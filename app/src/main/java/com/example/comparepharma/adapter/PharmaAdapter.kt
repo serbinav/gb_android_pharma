@@ -1,4 +1,4 @@
-package com.example.comparepharma.ui
+package com.example.comparepharma.adapter
 
 import android.view.LayoutInflater
 import android.view.View

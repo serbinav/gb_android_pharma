@@ -1,4 +1,4 @@
-package com.example.comparepharma.ui
+package com.example.comparepharma.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +7,6 @@ import com.example.comparepharma.data.Pharma
 import com.example.comparepharma.repository.RepositorySingle
 import com.google.android.material.button.MaterialButton
 import com.example.comparepharma.R
-import com.example.test_model.ui.main.MainFragment
 import java.util.*
 
 const val PARACETAMOL: String = "ПАРАЦЕТАМОЛ"
