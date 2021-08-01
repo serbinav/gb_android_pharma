@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.R
 import com.example.comparepharma.repository.RepositorySingle
 import com.example.comparepharma.adapter.PharmaAdapter
+import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -21,6 +22,7 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +34,13 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        binding = MainFragmentBinding.inflate(onGetLayoutInflater(savedInstanceState))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerPharma = view.findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerPharma = view.findViewById<RecyclerView>(binding.recyclerView.id)
         val adapter = PharmaAdapter.getInstance(RepositorySingle)
         recyclerPharma.adapter = adapter
 
