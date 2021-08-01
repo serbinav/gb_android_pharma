@@ -1,12 +1,13 @@
-package com.example.comparepharma
+package com.example.comparepharma.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.data.Pharma
 import com.example.comparepharma.repository.RepositorySingle
 import com.google.android.material.button.MaterialButton
+import com.example.comparepharma.R
+import com.example.test_model.ui.main.MainFragment
 import java.util.*
 
 const val PARACETAMOL: String = "ПАРАЦЕТАМОЛ"
@@ -15,10 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val recyclerPharma = findViewById<RecyclerView>(R.id.recycler_view)
-        val adapter = PharmaAdapter.getInstance(RepositorySingle)
-        recyclerPharma.adapter = adapter
 
         val button = findViewById<MaterialButton>(R.id.button_search)
 
@@ -43,6 +40,16 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        }
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .commitNow()
+        }
     }
 }
+
+
+
+

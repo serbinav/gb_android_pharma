@@ -1,4 +1,4 @@
-package com.example.comparepharma
+package com.example.comparepharma.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.comparepharma.R
 import com.example.comparepharma.data.Pharma
 import com.example.comparepharma.repository.IRepository
 
