@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.data.Pharma
 import com.example.comparepharma.repository.IRepository
 
+private const val NORMAL_TEMP: Float = 36.6F
+
 class PharmaAdapter(private val repository: IRepository) :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
     class PharmaViewHolder(val item: View) : RecyclerView.ViewHolder(item) {
@@ -42,8 +44,6 @@ class PharmaAdapter(private val repository: IRepository) :
     }
 
     companion object Factory {
-        private val NormalTemp: Float = 36.6F
-
         fun getInstance(repository: IRepository): PharmaAdapter {
             return PharmaAdapter(repository)
         }
