@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_img_200_200" />
+
+        <TextView
+            android:id="@+id/name_on_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/image_view"
+            android:layout_alignTop="@+id/image_view"
+            android:layout_alignEnd="@+id/image_view"
+            android:layout_alignBottom="@+id/image_view"
+            android:layout_margin="1dp"
+            android:gravity="start|bottom"
+            android:text="@string/name_text"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/price_on_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/image_view"
+            android:layout_alignTop="@+id/image_view"
+            android:layout_alignEnd="@+id/image_view"
+            android:layout_alignBottom="@+id/image_view"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:gravity="end|bottom"
+            android:text="@string/price_text"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
