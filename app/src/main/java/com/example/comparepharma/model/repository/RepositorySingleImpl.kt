@@ -23,8 +23,9 @@ object RepositorySingleImpl : Repository {
         pharmaCopy
     )
 
+    //Пока загрузка с сервера равна локальной загрузке
     override fun getPharmasFromServer(): List<Cost> {
-        TODO("Not yet implemented")
+        return medicaments
     }
 
     override fun getPharmasFromLocal(): List<Cost> {

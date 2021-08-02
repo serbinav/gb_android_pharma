@@ -7,11 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.databinding.ItemBinding
 import com.example.comparepharma.model.data.Cost
-import com.example.comparepharma.repository.Repository
 
 private const val NORMAL_TEMP: Float = 36.6F
 
-class PharmaAdapter(private val repository: Repository) :
+class PharmaAdapter(private val repository: List<Cost>) :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
 
     class PharmaViewHolder(private val item: ItemBinding) : RecyclerView.ViewHolder(item.root) {
@@ -37,15 +36,15 @@ class PharmaAdapter(private val repository: Repository) :
     }
 
     override fun onBindViewHolder(holder: PharmaViewHolder, position: Int) {
-        holder.bind(repository.getPharmasFromLocal()[position])
+        holder.bind(repository[position])
     }
 
     override fun getItemCount(): Int {
-        return repository.getPharmasFromLocal().size
+        return repository.size
     }
 
     companion object Factory {
-        fun getInstance(repository: Repository): PharmaAdapter {
+        fun getInstance(repository: List<Cost>): PharmaAdapter {
             return PharmaAdapter(repository)
         }
     }

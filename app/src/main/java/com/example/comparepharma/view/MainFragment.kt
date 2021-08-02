@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.adapter.PharmaAdapter
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.repository.RepositorySingleImpl
 import com.example.comparepharma.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -25,6 +24,8 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding
         get() = _binding!!
+    private lateinit var recyclerPharma: RecyclerView
+    private lateinit var adapter: PharmaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,16 +48,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerPharma = view.findViewById<RecyclerView>(binding.recyclerView.id)
-        val adapter = PharmaAdapter.getInstance(RepositorySingleImpl)
-        recyclerPharma.adapter = adapter
+        recyclerPharma = view.findViewById<RecyclerView>(binding.recyclerView.id)
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
-
-        binding.btnTest.setOnClickListener {
-            viewModel.requestData("ПОЗИЦИЯ НАША! УРА!")
-        }
+        viewModel.getPharmaFromRemote()
     }
 
     private fun renderData(data: AppState) {
@@ -64,7 +60,9 @@ class MainFragment : Fragment() {
             is AppState.Success -> {
                 val pharmaData = data.pharmaData
                 binding.loadingLayout.visibility = View.GONE
-                binding.btnTest.text = pharmaData
+
+                adapter = PharmaAdapter.getInstance(pharmaData)
+                recyclerPharma.adapter = adapter
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
@@ -73,7 +71,7 @@ class MainFragment : Fragment() {
                 binding.loadingLayout.visibility = View.GONE
                 Snackbar.make(binding.main, "ERROR!", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Reload") {
-                        viewModel.requestData(binding.btnTest.text.toString())
+                        viewModel.getPharmaFromRemote()
                     }
                     .show()
             }
