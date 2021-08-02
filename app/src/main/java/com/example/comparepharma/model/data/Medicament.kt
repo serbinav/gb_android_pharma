@@ -1,6 +1,8 @@
-package com.example.comparepharma.data
+package com.example.comparepharma.model.data
 
-data class Pharma constructor(var img: String = "", var name: String, var price: Int = 100) {
+data class Medicament constructor(
+    var img: String = "",
+    var name: String) {
 
     var count: Int = 0
         get() {
@@ -12,7 +14,7 @@ data class Pharma constructor(var img: String = "", var name: String, var price:
             field = value
         }
 
-    constructor(img: String, name: String, price: Int, count: Int) : this(img, name, price) {
+    constructor(img: String, name: String, count: Int) : this(img, name) {
         this.count = count
     }
 
