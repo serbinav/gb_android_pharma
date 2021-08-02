@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.example.comparepharma.repository.RepositorySingle
 import com.example.comparepharma.adapter.PharmaAdapter
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.repository.RepositorySingleImpl
 import com.example.comparepharma.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerPharma = view.findViewById<RecyclerView>(binding.recyclerView.id)
-        val adapter = PharmaAdapter.getInstance(RepositorySingle)
+        val adapter = PharmaAdapter.getInstance(RepositorySingleImpl)
         recyclerPharma.adapter = adapter
 
         val observer = Observer<AppState> { renderData(it) }

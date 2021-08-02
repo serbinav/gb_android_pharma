@@ -1,21 +1,11 @@
-package com.example.comparepharma.repository
+package com.example.comparepharma.model.repository
 
-import com.example.comparepharma.model.data.Medicament
 import com.example.comparepharma.model.data.Cost
-
-//открытый класс, по default final
-open class Repository : IRepository {
-    override fun getPharmas(): List<Cost> {
-        TODO("Not yet implemented")
-    }
-}
-
-interface IRepository {
-    fun getPharmas(): List<Cost>
-}
+import com.example.comparepharma.model.data.Medicament
+import com.example.comparepharma.repository.Repository
 
 //Singletone ближе всего static
-object RepositorySingle : IRepository {
+object RepositorySingleImpl : Repository {
 
     private val pharma = Cost(Medicament("", "ИФИМОЛ"), 90)
 
@@ -33,7 +23,11 @@ object RepositorySingle : IRepository {
         pharmaCopy
     )
 
-    override fun getPharmas(): List<Cost> {
+    override fun getPharmasFromServer(): List<Cost> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getPharmasFromLocal(): List<Cost> {
         return medicaments
     }
 }

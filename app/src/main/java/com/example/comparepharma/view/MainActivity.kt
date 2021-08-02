@@ -3,10 +3,10 @@ package com.example.comparepharma.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.comparepharma.repository.RepositorySingle
 import com.google.android.material.button.MaterialButton
 import com.example.comparepharma.databinding.MainActivityBinding
 import com.example.comparepharma.model.data.Cost
+import com.example.comparepharma.model.repository.RepositorySingleImpl
 import java.util.*
 
 const val PARACETAMOL: String = "ПАРАЦЕТАМОЛ"
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<MaterialButton>(binding.buttonSearch.id)
 
         button.setOnClickListener { it ->
-            val data: List<Cost> = RepositorySingle.getPharmas()
+            val data: List<Cost> = RepositorySingleImpl.getPharmasFromLocal()
 
             for (i in data.indices) {
                 when (data[i].medicament.name) {
