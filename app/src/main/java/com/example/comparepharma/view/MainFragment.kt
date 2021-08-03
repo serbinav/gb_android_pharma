@@ -49,7 +49,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerPharma = view.findViewById<RecyclerView>(binding.recyclerView.id)
+        recyclerPharma = binding.recyclerView
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
