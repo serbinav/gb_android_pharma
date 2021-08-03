@@ -7,6 +7,9 @@ import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.repository.RepositorySingleImpl
 import com.example.comparepharma.repository.Repository
 
+private const val WAIT_SMALL : Long = 1000
+private const val WAIT_LONG : Long = 2000
+
 class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
     ViewModel() {
 
@@ -21,7 +24,7 @@ class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
     fun getPharmaFromLocal(){
         liveDataToObserver.value = AppState.Loading
         Thread{
-            Thread.sleep(1000)
+            Thread.sleep(WAIT_SMALL)
             counter++
             liveDataToObserver.postValue(AppState.Success(repository.getPharmasFromLocal()))
         }.start()
@@ -30,7 +33,7 @@ class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
     fun getPharmaFromRemote(){
         liveDataToObserver.value = AppState.Loading
         Thread{
-            Thread.sleep(2000)
+            Thread.sleep(WAIT_LONG)
             counter++
             liveDataToObserver.postValue(AppState.Success(repository.getPharmasFromServer()))
         }.start()

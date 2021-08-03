@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.example.comparepharma.R
 import com.example.comparepharma.adapter.PharmaAdapter
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
@@ -69,7 +70,7 @@ class MainFragment : Fragment() {
             }
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.main, "ERROR!", Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(binding.main, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
                     .setAction("Reload") {
                         viewModel.getPharmaFromRemote()
                     }
