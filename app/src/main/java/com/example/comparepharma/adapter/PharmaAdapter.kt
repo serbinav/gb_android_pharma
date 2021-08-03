@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.databinding.ItemBinding
 import com.example.comparepharma.model.data.Cost
 
-private const val NORMAL_TEMP: Float = 36.6F
-
 class PharmaAdapter(private val repository: List<Cost>) :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
 

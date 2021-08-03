@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.repository.RepositorySingleImpl
-import com.example.comparepharma.repository.Repository
+import com.example.comparepharma.model.repository.Repository
 
 private const val WAIT_SMALL : Long = 1000
 private const val WAIT_LONG : Long = 2000
@@ -26,7 +26,7 @@ class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
         Thread{
             Thread.sleep(WAIT_SMALL)
             counter++
-            liveDataToObserver.postValue(AppState.Success(repository.getPharmasFromLocal()))
+            liveDataToObserver.postValue(AppState.Success(repository.getPharmaFromLocal()))
         }.start()
     }
 
@@ -35,7 +35,7 @@ class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
         Thread{
             Thread.sleep(WAIT_LONG)
             counter++
-            liveDataToObserver.postValue(AppState.Success(repository.getPharmasFromServer()))
+            liveDataToObserver.postValue(AppState.Success(repository.getPharmaFromServer()))
         }.start()
     }
 }
