@@ -5,6 +5,7 @@
     <string name="name_text">Мовалис</string>
     <string name="price_text">25 p</string>
     <string name="error">Ошибка загрузки данных</string>
+    <string name="loading_text">Здесь будет загрузка данных из интернета</string>
     <string name="name_label">Название</string>
     <string name="price_label">Цена</string>
 </resources>
