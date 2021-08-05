@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/frame"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraint"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -22,7 +17,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item">
         </androidx.recyclerview.widget.RecyclerView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mainFragmentFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@drawable/apteka_ru"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@null"
+            app:maxImageSize="@dimen/fab_icon_size" />
 
     <FrameLayout
         android:id="@+id/loading_layout"
@@ -40,4 +45,4 @@
         </ProgressBar>
     </FrameLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
