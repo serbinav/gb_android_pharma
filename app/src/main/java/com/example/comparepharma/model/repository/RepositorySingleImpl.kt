@@ -2,6 +2,8 @@ package com.example.comparepharma.model.repository
 
 import com.example.comparepharma.model.data.Cost
 import com.example.comparepharma.model.data.Medicament
+import com.example.comparepharma.model.data.getAptekaAprilPharma
+import com.example.comparepharma.model.data.getAptekaRuPharma
 
 //Singleton ближе всего к static
 object RepositorySingleImpl : Repository {
@@ -28,10 +30,10 @@ object RepositorySingleImpl : Repository {
     }
 
     override fun getPharmaFromLocalAptekaRu(): List<Cost> {
-        return getPharmaFromLocalAptekaRu()
+        return getAptekaRuPharma()
     }
 
     override fun getPharmaFromLocalAptekaApril(): List<Cost> {
-        return getPharmaFromLocalAptekaApril()
+        return getAptekaAprilPharma()
     }
 }
