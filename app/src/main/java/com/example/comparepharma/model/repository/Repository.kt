@@ -4,5 +4,6 @@ import com.example.comparepharma.model.data.Cost
 
 interface Repository {
     fun getPharmaFromServer(): List<Cost>
-    fun getPharmaFromLocal(): List<Cost>
+    fun getPharmaFromLocalAptekaRu(): List<Cost>
+    fun getPharmaFromLocalAptekaApril(): List<Cost>
 }

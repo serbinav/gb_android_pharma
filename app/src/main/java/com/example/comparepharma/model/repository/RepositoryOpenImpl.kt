@@ -8,7 +8,11 @@ open class RepositoryOpenImpl : Repository {
         TODO("Not yet implemented")
     }
 
-    override fun getPharmaFromLocal(): List<Cost> {
+    override fun getPharmaFromLocalAptekaRu(): List<Cost> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getPharmaFromLocalAptekaApril(): List<Cost> {
         TODO("Not yet implemented")
     }
 }

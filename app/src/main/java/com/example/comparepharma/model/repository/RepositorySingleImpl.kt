@@ -27,7 +27,11 @@ object RepositorySingleImpl : Repository {
         return medicament
     }
 
-    override fun getPharmaFromLocal(): List<Cost> {
-        return medicament
+    override fun getPharmaFromLocalAptekaRu(): List<Cost> {
+        return getPharmaFromLocalAptekaRu()
+    }
+
+    override fun getPharmaFromLocalAptekaApril(): List<Cost> {
+        return getPharmaFromLocalAptekaApril()
     }
 }
