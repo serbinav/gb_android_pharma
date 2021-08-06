@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
-        viewModel.getPharmaFromLocalAptekaRu()
+        viewModel.getPharmaFromLocalAptekaApril()
     }
 
     private fun changeAptekaDataSet() {
