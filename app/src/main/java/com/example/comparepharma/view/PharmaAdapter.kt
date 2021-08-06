@@ -2,15 +2,23 @@ package com.example.comparepharma.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.databinding.ItemBinding
 import com.example.comparepharma.model.data.Cost
 
-class PharmaAdapter:
+class PharmaAdapter :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
 
     private var pharmaData: List<Cost> = listOf()
+    private var onItemClickListener: MainFragment.onItemViewClickListener? = null
+
+    fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.onItemViewClickListener) {
+        this.onItemClickListener = onItemViewClickListener
+    }
+
+    fun removeOnItemViewClickListener() {
+        onItemClickListener = null
+    }
 
     fun setPharma(data: List<Cost>) {
         pharmaData = data
@@ -22,12 +30,12 @@ class PharmaAdapter:
         return PharmaViewHolder(itemBinding)
     }
 
-    class PharmaViewHolder(private val item: ItemBinding) : RecyclerView.ViewHolder(item.root) {
+    inner class PharmaViewHolder(private val item: ItemBinding) : RecyclerView.ViewHolder(item.root) {
         fun bind(cost: Cost) {
             item.nameOnImg.text = cost.medicament.name
             item.priceOnImg.text = cost.price.toString()
             item.root.setOnClickListener {
-                Toast.makeText(itemView.context, item.nameOnImg.text, Toast.LENGTH_LONG).show()
+                onItemClickListener?.onItemViewClick(cost)
             }
         }
     }
@@ -39,5 +47,4 @@ class PharmaAdapter:
     override fun getItemCount(): Int {
         return pharmaData.size
     }
-
 }

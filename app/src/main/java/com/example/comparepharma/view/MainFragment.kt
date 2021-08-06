@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.data.Cost
 import com.example.comparepharma.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -37,6 +38,7 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter.removeOnItemViewClickListener()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,20 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adapter.setOnItemViewClickListener(object : onItemViewClickListener {
+            override fun onItemViewClick(cost: Cost) {
+                val manager = activity?.supportFragmentManager
+                if (manager != null) {
+                    val bundle = Bundle()
+                    bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
+                    manager.beginTransaction()
+                        .add(R.id.container,DetailsFragment.newInstance(bundle))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+            }
+        })
+
         binding.recyclerView.adapter = adapter
         binding.mainFragmentFAB.setOnClickListener {
             changeAptekaDataSet()
@@ -95,5 +111,9 @@ class MainFragment : Fragment() {
                     .show()
             }
         }
+    }
+
+    interface onItemViewClickListener {
+        fun onItemViewClick(cost: Cost)
     }
 }
