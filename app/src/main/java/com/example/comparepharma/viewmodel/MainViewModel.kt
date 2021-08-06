@@ -5,37 +5,36 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.repository.RepositorySingleImpl
-import com.example.comparepharma.repository.Repository
+import com.example.comparepharma.model.repository.Repository
 
-private const val WAIT_SMALL : Long = 1000
-private const val WAIT_LONG : Long = 2000
+private const val WAIT_LONG: Long = 3000
 
 class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
     ViewModel() {
 
     private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData()
 
-    private var counter: Int = 0
-
     fun getDate(): LiveData<AppState> {
         return liveDataToObserver
     }
 
-    fun getPharmaFromLocal(){
-        liveDataToObserver.value = AppState.Loading
-        Thread{
-            Thread.sleep(WAIT_SMALL)
-            counter++
-            liveDataToObserver.postValue(AppState.Success(repository.getPharmasFromLocal()))
-        }.start()
-    }
+    fun getPharmaFromLocalAptekaRu() = getPharmaFromLocalSource(isAptekaRu = true)
 
-    fun getPharmaFromRemote(){
+    fun getPharmaFromLocalAptekaApril() = getPharmaFromLocalSource(isAptekaRu = false)
+
+    private fun getPharmaFromLocalSource(isAptekaRu: Boolean) {
         liveDataToObserver.value = AppState.Loading
-        Thread{
+        Thread {
             Thread.sleep(WAIT_LONG)
-            counter++
-            liveDataToObserver.postValue(AppState.Success(repository.getPharmasFromServer()))
+            liveDataToObserver.postValue(
+                AppState.Success(
+                    if (isAptekaRu) {
+                        repository.getPharmaFromLocalAptekaRu()
+                    } else {
+                        repository.getPharmaFromLocalAptekaApril()
+                    }
+                )
+            )
         }.start()
     }
 }

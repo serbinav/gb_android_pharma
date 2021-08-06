@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.R
-import com.example.comparepharma.adapter.PharmaAdapter
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.data.Cost
 import com.example.comparepharma.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -25,8 +24,8 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding
         get() = _binding!!
-    private lateinit var recyclerPharma: RecyclerView
-    private lateinit var adapter: PharmaAdapter
+    private val adapter = PharmaAdapter()
+    private var isDataSetAptekaRu: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +38,7 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter.removeOnItemViewClickListener()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,13 +47,41 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        adapter.setOnItemViewClickListener(object : onItemViewClickListener {
+            override fun onItemViewClick(cost: Cost) {
+                val manager = activity?.supportFragmentManager
+                if (manager != null) {
+                    val bundle = Bundle()
+                    bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
+                    manager.beginTransaction()
+                        .add(R.id.container,DetailsFragment.newInstance(bundle))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+            }
+        })
 
-        recyclerPharma = binding.recyclerView
+        binding.recyclerView.adapter = adapter
+        binding.mainFragmentFAB.setOnClickListener {
+            changeAptekaDataSet()
+        }
+
+        super.onViewCreated(view, savedInstanceState)
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
-        viewModel.getPharmaFromRemote()
+        viewModel.getPharmaFromLocalAptekaApril()
+    }
+
+    private fun changeAptekaDataSet() {
+        if (isDataSetAptekaRu) {
+            viewModel.getPharmaFromLocalAptekaRu()
+            binding.mainFragmentFAB.setImageResource(R.drawable.apteka_ru)
+        } else {
+            viewModel.getPharmaFromLocalAptekaApril()
+            binding.mainFragmentFAB.setImageResource(R.drawable.apteka_april)
+        }
+        isDataSetAptekaRu = !isDataSetAptekaRu
     }
 
     private fun renderData(data: AppState) {
@@ -61,21 +89,31 @@ class MainFragment : Fragment() {
             is AppState.Success -> {
                 val pharmaData = data.pharmaData
                 binding.loadingLayout.visibility = View.GONE
-
-                adapter = PharmaAdapter.getInstance(pharmaData)
-                recyclerPharma.adapter = adapter
+                adapter.setPharma(pharmaData)
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.main, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(
+                    binding.mainFragmentFAB,
+                    getString(R.string.error),
+                    Snackbar.LENGTH_INDEFINITE
+                )
                     .setAction("Reload") {
-                        viewModel.getPharmaFromRemote()
+                        if (isDataSetAptekaRu) {
+                            viewModel.getPharmaFromLocalAptekaRu()
+                        } else {
+                            viewModel.getPharmaFromLocalAptekaApril()
+                        }
                     }
                     .show()
             }
         }
+    }
+
+    interface onItemViewClickListener {
+        fun onItemViewClick(cost: Cost)
     }
 }
