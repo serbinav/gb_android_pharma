@@ -1,9 +1,9 @@
 package com.example.comparepharma.model.repository
 
-import com.example.comparepharma.model.data.Cost
+import com.example.comparepharma.model.data.MedicineCost
 
 interface Repository {
-    fun getPharmaFromServer(): List<Cost>
-    fun getPharmaFromLocalAptekaRu(): List<Cost>
-    fun getPharmaFromLocalAptekaApril(): List<Cost>
+    fun getPharmaFromServer(): List<MedicineCost>
+    fun getPharmaFromLocalAptekaRu(): List<MedicineCost>
+    fun getPharmaFromLocalAptekaApril(): List<MedicineCost>
 }
