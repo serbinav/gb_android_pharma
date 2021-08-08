@@ -10,9 +10,9 @@ class PharmaAdapter :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
 
     private var pharmaData: List<Cost> = listOf()
-    private var onItemClickListener: MainFragment.onItemViewClickListener? = null
+    private var onItemClickListener: MainFragment.OnItemViewClickListener? = null
 
-    fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.onItemViewClickListener) {
+    fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.OnItemViewClickListener) {
         this.onItemClickListener = onItemViewClickListener
     }
 
@@ -30,7 +30,8 @@ class PharmaAdapter :
         return PharmaViewHolder(itemBinding)
     }
 
-    inner class PharmaViewHolder(private val item: ItemBinding) : RecyclerView.ViewHolder(item.root) {
+    inner class PharmaViewHolder(private val item: ItemBinding) :
+        RecyclerView.ViewHolder(item.root) {
         fun bind(cost: Cost) {
             item.nameOnImg.text = cost.medicament.name
             item.priceOnImg.text = cost.price.toString()

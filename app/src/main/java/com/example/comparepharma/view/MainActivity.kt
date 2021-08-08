@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val button: MaterialButton = binding.buttonSearch
 
-        button.setOnClickListener { it ->
+        button.setOnClickListener {
             Toast.makeText(
                 this@MainActivity,
                 R.string.loading_text,

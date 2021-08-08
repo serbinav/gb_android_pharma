@@ -47,14 +47,14 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter.setOnItemViewClickListener(object : onItemViewClickListener {
+        adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(cost: Cost) {
                 val manager = activity?.supportFragmentManager
                 if (manager != null) {
                     val bundle = Bundle()
                     bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
                     manager.beginTransaction()
-                        .add(R.id.container,DetailsFragment.newInstance(bundle))
+                        .add(R.id.container, DetailsFragment.newInstance(bundle))
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }
@@ -113,7 +113,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    interface onItemViewClickListener {
+    interface OnItemViewClickListener {
         fun onItemViewClick(cost: Cost)
     }
 }

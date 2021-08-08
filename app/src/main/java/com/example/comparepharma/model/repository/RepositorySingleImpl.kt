@@ -10,7 +10,7 @@ object RepositorySingleImpl : Repository {
 
     private val pharma = Cost(Medicament("", "ИФИМОЛ"), 90)
 
-    private val pharmaCopy = pharma.copy(Medicament(name = "ПАНАДОЛ"), price = 99)
+    private val pharmaCopy = pharma.copy(medicament = Medicament(name = "ПАНАДОЛ"), price = 99)
 
     private val medicament: List<Cost> = listOf(
         Cost(Medicament(name = "ОТ ГРИППА И ПРОСТУДЫ ПОРОШОК СО ВКУСОМ ЛИМОНА"), price = 440),
