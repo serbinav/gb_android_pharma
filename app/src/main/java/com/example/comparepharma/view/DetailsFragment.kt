@@ -25,9 +25,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pharma = arguments?.getParcelable<Cost>(BUNDLE_EXTRA)
-        if (pharma != null) {
-            bindData(pharma)
-        }
+        pharma?.let { bindData(pharma) }
     }
 
     private fun bindData(pharmaData: Cost) {
