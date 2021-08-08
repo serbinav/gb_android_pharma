@@ -32,6 +32,9 @@ class DetailsFragment : Fragment() {
         with(binding) {
             name.text = pharmaData.medicament.tradeName
             price.text = pharmaData.price.toString()
+            releaseForm.text = pharmaData.medicament.releaseForm
+            dosage.text = pharmaData.medicament.dosage
+            vendor.text = pharmaData.medicament.vendor
         }
     }
 
