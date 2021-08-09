@@ -14,9 +14,7 @@ class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
 
     private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData()
 
-    fun getDate(): LiveData<AppState> {
-        return liveDataToObserver
-    }
+    fun getDate(): LiveData<AppState> = liveDataToObserver
 
     fun getPharmaFromLocalAptekaRu() = getPharmaFromLocalSource(isAptekaRu = true)
 

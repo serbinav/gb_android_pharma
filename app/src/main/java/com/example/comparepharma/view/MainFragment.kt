@@ -87,28 +87,24 @@ class MainFragment : Fragment() {
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Success -> {
-                val pharmaData = data.pharmaData
-                binding.loadingLayout.visibility = View.GONE
-                adapter.setPharma(pharmaData)
+                binding.loadingLayout.hide()
+                adapter.setPharma(data.pharmaData)
             }
             is AppState.Loading -> {
-                binding.loadingLayout.visibility = View.VISIBLE
+                binding.loadingLayout.show()
             }
             is AppState.Error -> {
-                binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(
-                    binding.mainFragmentFAB,
+                binding.loadingLayout.hide()
+                binding.mainFragmentFAB.showSnackBar(
                     getString(R.string.error),
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction("Reload") {
-                        if (isDataSetAptekaRu) {
-                            viewModel.getPharmaFromLocalAptekaRu()
-                        } else {
-                            viewModel.getPharmaFromLocalAptekaApril()
-                        }
+                    getString(R.string.reload)
+                ) {
+                    if (isDataSetAptekaRu) {
+                        viewModel.getPharmaFromLocalAptekaRu()
+                    } else {
+                        viewModel.getPharmaFromLocalAptekaApril()
                     }
-                    .show()
+                }
             }
         }
     }
