@@ -24,17 +24,18 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pharma = arguments?.getParcelable<MedicineCost>(BUNDLE_EXTRA)
-        pharma?.let { bindData(pharma) }
+        arguments?.getParcelable<MedicineCost>(BUNDLE_EXTRA)?.let { pharma -> bindData(pharma) }
     }
 
     private fun bindData(pharmaData: MedicineCost) {
         with(binding) {
-            name.text = pharmaData.medicament.tradeName
+            pharmaData.medicament.also { medicine ->
+                name.text = medicine.tradeName
+                releaseForm.text = medicine.releaseForm
+                dosage.text = medicine.dosage
+                vendor.text = medicine.vendor
+            }
             price.text = pharmaData.price.toString()
-            releaseForm.text = pharmaData.medicament.releaseForm
-            dosage.text = pharmaData.medicament.dosage
-            vendor.text = pharmaData.medicament.vendor
         }
     }
 

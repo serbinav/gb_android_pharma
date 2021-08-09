@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -20,7 +19,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val  viewModel: MainViewModel by lazy {
+    private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
     private var _binding: MainFragmentBinding? = null
@@ -40,23 +39,27 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        adapter.removeOnItemViewClickListener()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
-            override fun onItemViewClick(cost: MedicineCost) {
-                val manager = activity?.supportFragmentManager
-                if (manager != null) {
-                    val bundle = Bundle()
-                    bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
-                    manager.beginTransaction()
-                        .add(R.id.container, DetailsFragment.newInstance(bundle))
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
-                }
+        adapter.setOnItemViewClickListener { cost ->
+            activity?.supportFragmentManager?.apply {
+                val bundle = Bundle()
+                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
+                beginTransaction()
+                    .add(
+                        R.id.container,
+                        DetailsFragment.newInstance(Bundle().apply {
+                            putParcelable(
+                                DetailsFragment.BUNDLE_EXTRA,
+                                cost
+                            )
+                        })
+                    )
+                    .addToBackStack("")
+                    .commitAllowingStateLoss()
             }
-        })
+        }
 
         binding.recyclerView.adapter = adapter
         binding.mainFragmentFAB.setOnClickListener {
@@ -108,9 +111,5 @@ class MainFragment : Fragment() {
                     .show()
             }
         }
-    }
-
-    interface OnItemViewClickListener {
-        fun onItemViewClick(cost: MedicineCost)
     }
 }
