@@ -1,39 +1,101 @@
 package com.example.comparepharma.model.repository
 
-import com.example.comparepharma.model.data.Cost
-import com.example.comparepharma.model.data.Medicament
-import com.example.comparepharma.model.data.getAptekaAprilPharma
-import com.example.comparepharma.model.data.getAptekaRuPharma
+import com.example.comparepharma.model.data.*
 
 //Singleton ближе всего к static
 object RepositorySingleImpl : Repository {
 
-    private val pharma = Cost(Medicament("", "ИФИМОЛ"), 90)
+    private val pharma = MedicineCost(
+        Medicine(
+            "",
+            "ИФИМОЛ",
+            drugOrRecipe = false,
+            releaseForm = "таблетки",
+            vendor = "ОЗОН,ООО",
+            dosage = "0.5"
+        ), "90"
+    )
 
-    private val pharmaCopy = pharma.copy(Medicament(name = "ПАНАДОЛ"), price = 99)
+    private val pharmaCopy = pharma.copy(
+        medicament = Medicine(
+            tradeName = "ПАНАДОЛ",
+            drugOrRecipe = false,
+            releaseForm = "таблетки",
+            vendor = "ОЗОН,ООО",
+            dosage = "0.5"
+        ), price = "99"
+    )
 
-    private val medicament: List<Cost> = listOf(
-        Cost(Medicament(name = "ОТ ГРИППА И ПРОСТУДЫ ПОРОШОК СО ВКУСОМ ЛИМОНА"), price = 440),
-        Cost(Medicament(name = "САФИСТОН"), price = 164),
-        Cost(Medicament(name = "ТЕМПАЛГИН ТРИО"), price = 157),
-        Cost(Medicament(name = "ПАРАЦЕТАМОЛ"), price = 58),
-        Cost(Medicament(name = "ПАРАЦЕТАМОЛ"), price = 71),
-        Cost(Medicament(name = "ПАРАЦЕТАМОЛ"), price = 21),
-        Cost(Medicament(name = "ПАРАЦЕТАМОЛ-ЭКО")),
+    private val medicament: List<MedicineCost> = listOf(
+        MedicineCost(
+            Medicine(
+                tradeName = "ОТ ГРИППА И ПРОСТУДЫ ПОРОШОК СО ВКУСОМ ЛИМОНА",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            ), price = "440"
+        ),
+        MedicineCost(
+            Medicine(
+                tradeName = "САФИСТОН",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            ), price = "164"
+        ),
+        MedicineCost(
+            Medicine(
+                tradeName = "ТЕМПАЛГИН ТРИО",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            ), price = "157"
+        ),
+        MedicineCost(
+            Medicine(
+                tradeName = "ПАРАЦЕТАМОЛ",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            ), price = "58"
+        ),
+        MedicineCost(
+            Medicine(
+                tradeName = "ПАРАЦЕТАМОЛ",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            ), price = "71"
+        ),
+        MedicineCost(
+            Medicine(
+                tradeName = "ПАРАЦЕТАМОЛ",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            ), price = "21"
+        ),
+        MedicineCost(
+            Medicine(
+                tradeName = "ПАРАЦЕТАМОЛ-ЭКО",
+                drugOrRecipe = false,
+                releaseForm = "таблетки",
+                vendor = "ОЗОН,ООО",
+                dosage = "0.5"
+            )
+        ),
         pharma,
         pharmaCopy
     )
 
     //Пока загрузка с сервера равна локальной загрузке
-    override fun getPharmaFromServer(): List<Cost> {
-        return medicament
-    }
-
-    override fun getPharmaFromLocalAptekaRu(): List<Cost> {
-        return getAptekaRuPharma()
-    }
-
-    override fun getPharmaFromLocalAptekaApril(): List<Cost> {
-        return getAptekaAprilPharma()
-    }
+    override fun getPharmaFromServer() = medicament
+    override fun getPharmaFromLocalAptekaRu() = getAptekaRuPharma()
+    override fun getPharmaFromLocalAptekaApril() = getAptekaAprilPharma()
 }

@@ -5,7 +5,14 @@
     <string name="name_text">Мовалис</string>
     <string name="price_text">25 p</string>
     <string name="error">Ошибка загрузки данных</string>
+    <string name="reload">Перезагрузка</string>
     <string name="loading_text">Здесь будет загрузка данных из интернета</string>
     <string name="name_label">Название</string>
     <string name="price_label">Цена</string>
+    <string name="release_form_label">Форма выпуска</string>
+    <string name="dosage_label">Дозировка</string>
+    <string name="vendor_label">Производитель</string>
+    <string name="vendor_text">ООО ОЗОН</string>
+    <string name="dosage_text">0.5 г</string>
+    <string name="release_form_text">таблетки</string>
 </resources>

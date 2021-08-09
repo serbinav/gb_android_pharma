@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
-import com.example.comparepharma.model.data.Cost
+import com.example.comparepharma.model.data.MedicineCost
 
 class DetailsFragment : Fragment() {
 
@@ -24,15 +24,17 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pharma = arguments?.getParcelable<Cost>(BUNDLE_EXTRA)
-        if (pharma != null) {
-            bindData(pharma)
-        }
+        arguments?.getParcelable<MedicineCost>(BUNDLE_EXTRA)?.let { pharma -> bindData(pharma) }
     }
 
-    private fun bindData(pharmaData: Cost) {
+    private fun bindData(pharmaData: MedicineCost) {
         with(binding) {
-            name.text = pharmaData.medicament.name
+            pharmaData.medicament.also { medicine ->
+                name.text = medicine.tradeName
+                releaseForm.text = medicine.releaseForm
+                dosage.text = medicine.dosage
+                vendor.text = medicine.vendor
+            }
             price.text = pharmaData.price.toString()
         }
     }

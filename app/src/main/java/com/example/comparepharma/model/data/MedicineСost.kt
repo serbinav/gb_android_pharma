@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Cost constructor(
-    var medicament: Medicament,
-    var price: Int = 100
+data class MedicineCost constructor(
+    var medicament: Medicine,
+    var price: String = "100"
 ) : Parcelable {
     var count: Int = 0
         get() {
@@ -18,7 +18,7 @@ data class Cost constructor(
             field = value
         }
 
-    constructor(medicament: Medicament, price: Int, count: Int) : this(medicament, price) {
+    constructor(medicament: Medicine, price: String, count: Int) : this(medicament, price) {
         this.count = count
     }
 

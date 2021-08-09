@@ -4,23 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.databinding.ItemBinding
-import com.example.comparepharma.model.data.Cost
+import com.example.comparepharma.model.data.MedicineCost
 
 class PharmaAdapter :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
 
-    private var pharmaData: List<Cost> = listOf()
-    private var onItemClickListener: MainFragment.onItemViewClickListener? = null
+    private var pharmaData: List<MedicineCost> = listOf()
+    private var onItemClickListener: (MedicineCost) -> Unit = {}
 
-    fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.onItemViewClickListener) {
+    fun setOnItemViewClickListener(onItemViewClickListener: (MedicineCost) -> Unit) {
         this.onItemClickListener = onItemViewClickListener
     }
 
-    fun removeOnItemViewClickListener() {
-        onItemClickListener = null
-    }
-
-    fun setPharma(data: List<Cost>) {
+    fun setPharma(data: List<MedicineCost>) {
         pharmaData = data
         notifyDataSetChanged()
     }
@@ -30,12 +26,15 @@ class PharmaAdapter :
         return PharmaViewHolder(itemBinding)
     }
 
-    inner class PharmaViewHolder(private val item: ItemBinding) : RecyclerView.ViewHolder(item.root) {
-        fun bind(cost: Cost) {
-            item.nameOnImg.text = cost.medicament.name
-            item.priceOnImg.text = cost.price.toString()
-            item.root.setOnClickListener {
-                onItemClickListener?.onItemViewClick(cost)
+    inner class PharmaViewHolder(private val binding: ItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(cost: MedicineCost) {
+            binding.apply {
+                nameOnImg.text = cost.medicament.tradeName
+                priceOnImg.text = cost.price.toString()
+                root.setOnClickListener {
+                    onItemClickListener(cost)
+                }
             }
         }
     }
