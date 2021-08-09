@@ -13,7 +13,7 @@ object RepositorySingleImpl : Repository {
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), 90
+        ), "90"
     )
 
     private val pharmaCopy = pharma.copy(
@@ -23,7 +23,7 @@ object RepositorySingleImpl : Repository {
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 99
+        ), price = "99"
     )
 
     private val medicament: List<MedicineCost> = listOf(
@@ -34,7 +34,7 @@ object RepositorySingleImpl : Repository {
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
-            ), price = 440
+            ), price = "440"
         ),
         MedicineCost(
             Medicine(
@@ -43,7 +43,7 @@ object RepositorySingleImpl : Repository {
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
-            ), price = 164
+            ), price = "164"
         ),
         MedicineCost(
             Medicine(
@@ -52,7 +52,7 @@ object RepositorySingleImpl : Repository {
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
-            ), price = 157
+            ), price = "157"
         ),
         MedicineCost(
             Medicine(
@@ -61,7 +61,7 @@ object RepositorySingleImpl : Repository {
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
-            ), price = 58
+            ), price = "58"
         ),
         MedicineCost(
             Medicine(
@@ -70,7 +70,7 @@ object RepositorySingleImpl : Repository {
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
-            ), price = 71
+            ), price = "71"
         ),
         MedicineCost(
             Medicine(
@@ -79,7 +79,7 @@ object RepositorySingleImpl : Repository {
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
-            ), price = 21
+            ), price = "21"
         ),
         MedicineCost(
             Medicine(

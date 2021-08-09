@@ -1,5 +1,7 @@
 package com.example.comparepharma.model.data
 
+import com.example.comparepharma.view.addCurrencySymbol
+
 fun getAptekaRuPharma() = listOf(
     MedicineCost(
         Medicine(
@@ -8,7 +10,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 540
+        ), price = "540".addCurrencySymbol()
     ),
     MedicineCost(
         Medicine(
@@ -17,7 +19,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 144
+        ), price = "144"
     ),
     MedicineCost(
         Medicine(
@@ -26,7 +28,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 134
+        ), price = "134"
     ),
     MedicineCost(
         Medicine(
@@ -35,7 +37,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 58
+        ), price = "58"
     ),
     MedicineCost(
         Medicine(
@@ -44,7 +46,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 70
+        ), price = "70"
     ),
     MedicineCost(
         Medicine(
@@ -53,7 +55,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 62
+        ), price = "62"
     ),
     MedicineCost(
         Medicine(
@@ -62,7 +64,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 78
+        ), price = "78"
     ),
     MedicineCost(
         Medicine(
@@ -71,7 +73,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 94
+        ), price = "94"
     ),
     MedicineCost(
         Medicine(
@@ -80,7 +82,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 68
+        ), price = "68"
     ),
     MedicineCost(
         Medicine(
@@ -89,7 +91,7 @@ fun getAptekaRuPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 31
+        ), price = "31"
     ),
 )
 
@@ -101,7 +103,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 68
+        ), price = "68".addCurrencySymbol()
     ),
     MedicineCost(
         Medicine(
@@ -110,7 +112,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 12
+        ), price = "12"
     ),
     MedicineCost(
         Medicine(
@@ -119,7 +121,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 140
+        ), price = "140"
     ),
     MedicineCost(
         Medicine(
@@ -128,7 +130,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 20
+        ), price = "20"
     ),
     MedicineCost(
         Medicine(
@@ -137,7 +139,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 140
+        ), price = "140"
     ),
     MedicineCost(
         Medicine(
@@ -146,7 +148,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 68
+        ), price = "68"
     ),
     MedicineCost(
         Medicine(
@@ -155,7 +157,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 131
+        ), price = "131"
     ),
     MedicineCost(
         Medicine(
@@ -164,7 +166,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 82
+        ), price = "82"
     ),
     MedicineCost(
         Medicine(
@@ -173,7 +175,7 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 56
+        ), price = "56"
     ),
     MedicineCost(
         Medicine(
@@ -182,6 +184,6 @@ fun getAptekaAprilPharma() = listOf(
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
-        ), price = 96
+        ), price = "96"
     )
 )
