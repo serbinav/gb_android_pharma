@@ -35,7 +35,7 @@ class DetailsFragment : Fragment() {
                 dosage.text = medicine.dosage
                 vendor.text = medicine.vendor
             }
-            price.text = pharmaData.price.toString()
+            price.text = pharmaData.price
         }
     }
 

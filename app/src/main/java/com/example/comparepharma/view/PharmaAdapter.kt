@@ -31,7 +31,7 @@ class PharmaAdapter :
         fun bind(cost: MedicineCost) {
             binding.apply {
                 nameOnImg.text = cost.medicament.tradeName
-                priceOnImg.text = cost.price.toString()
+                priceOnImg.text = cost.price
                 root.setOnClickListener {
                     onItemClickListener(cost)
                 }
