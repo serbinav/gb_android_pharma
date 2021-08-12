@@ -5,8 +5,9 @@ import com.example.comparepharma.view.addCurrencySymbol
 fun getAptekaRuPharma() = listOf(
     MedicineCost(
         Medicine(
+            id = "1",
             tradeName = "ОТ ГРИППА И ПРОСТУДЫ ПОРОШОК СО ВКУСОМ ЛИМОНА",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -14,8 +15,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "2",
             tradeName = "САФИСТОН",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -23,8 +25,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "3",
             tradeName = "ТЕМПАЛГИН ТРИО",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -32,8 +35,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "4",
             tradeName = "ПАРАЦЕТАМОЛ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -41,8 +45,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "5",
             tradeName = "ПАРАЦЕТАМОЛ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -50,8 +55,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "6",
             tradeName = "ПАРАЦЕТАМОЛ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -59,8 +65,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "7",
             tradeName = "ПАРАЦЕТАМОЛ ДЕТСКИЙ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -68,8 +75,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "8",
             tradeName = "ПАРАЦЕТАМОЛ ЭКСТРАТАБ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -77,8 +85,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "9",
             tradeName = "ПАРАЦЕТАМОЛ ВЕЛФАРМ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -86,8 +95,9 @@ fun getAptekaRuPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "10",
             tradeName = "ПАРАЦЕТАМОЛ-АЛЬТФАРМ",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -98,8 +108,9 @@ fun getAptekaRuPharma() = listOf(
 fun getAptekaAprilPharma() = listOf(
     MedicineCost(
         Medicine(
+            id = "234453",
             tradeName = "Парацетамол",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -107,8 +118,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "43962",
             tradeName = "Парацетамол",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -116,8 +128,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "243246",
             tradeName = "Парацетамол таблетки шипучие",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -125,8 +138,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "265418",
             tradeName = "Парацетамол суппозитории ректальные",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -134,8 +148,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "239973",
             tradeName = "Парацетамол таблетки шипучие стрипы",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -143,8 +158,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "84629",
             tradeName = "Парацетамол суспензия для приема внутрь",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -152,8 +168,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "219747",
             tradeName = "Парацетамол суспензия для приема внутрь",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -161,8 +178,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "259198",
             tradeName = "Парацетамол раствор для внутреннего применения",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -170,8 +188,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "10582",
             tradeName = "Цефекон Д суппозитории ректальные",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
@@ -179,8 +198,9 @@ fun getAptekaAprilPharma() = listOf(
     ),
     MedicineCost(
         Medicine(
+            id = "29885",
             tradeName = "Панадол суспензия для приема внутрь",
-            drugOrRecipe = false,
+            drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
             dosage = "0.5"
