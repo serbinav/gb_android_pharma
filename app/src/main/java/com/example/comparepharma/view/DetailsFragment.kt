@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.data.MedicineCost
-import com.example.comparepharma.model.dto.AptekaAprilDTO
+import com.example.comparepharma.model.dto.*
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -61,9 +61,10 @@ class DetailsFragment : Fragment() {
                         val bufferedReader =
                             BufferedReader(InputStreamReader(urlConnection.inputStream))
 
-                        val aptekaAprilDTO: AptekaAprilDTO =
-                            Gson().fromJson(getLines(bufferedReader), AptekaAprilDTO::class.java)
-                        handler.post { displayPharma(aptekaAprilDTO) }
+                        val aptekaAprilDTO: Array<SearchAprilDTO> =
+                            Gson().fromJson(getLines(bufferedReader), Array<SearchAprilDTO>::class.java)
+                        handler.post { displayPharma(aptekaAprilDTO[0]) }
+
                     } catch (e: Exception) {
                         Log.e("PHARMA", "FAIL CONNECTION", e)
                         e.printStackTrace()
@@ -82,17 +83,17 @@ class DetailsFragment : Fragment() {
         return reader.lines().collect(Collectors.joining("\n"))
     }
 
-    private fun displayPharma(pharmaDTO: AptekaAprilDTO) {
+    private fun displayPharma(pharmaDTO: SearchAprilDTO) {
         with(binding) {
             main.show()
             loadingLayout.hide()
-            pharmaDTO.searchAprilDTO?.let { medicine ->
-                name.text = medicine.propName1000541
-                releaseForm.text = medicine.propReleaseForm16
-                dosage.text = medicine.propDosage1
-                vendor.text = medicine.propVendor1975
+            pharmaDTO?.let { medicine ->
+                name.text = medicine.name
+                releaseForm.text = medicine.description.filter { it?.typeID == 19 }[0]?.description
+                dosage.text = medicine.properties.filter { it?.typeID == 20 }[0]?.name
+                vendor.text = medicine.properties.filter { it?.typeID == 13 }[0]?.name
+                price.text = medicine.price?.withoutCard.toString()
             }
-            price.text = pharmaDTO.searchAprilDTO?.priceWithoutCard.toString()
         }
     }
 
