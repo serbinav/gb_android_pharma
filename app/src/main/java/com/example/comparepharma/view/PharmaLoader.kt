@@ -37,31 +37,30 @@ class PharmaLoader(
                 Log.e("PHARMA", "Looper.myLooper() == null")
                 throw RuntimeException("")
             }
-            Thread(
-                Runnable {
-                    lateinit var urlConnection: HttpsURLConnection
-                    try {
-                        urlConnection = uri.openConnection() as HttpsURLConnection
-                        urlConnection.requestMethod = "GET"
-                        urlConnection.readTimeout = 10000
-                        val bufferedReader =
-                            BufferedReader(InputStreamReader(urlConnection.inputStream))
+            Thread {
+                lateinit var urlConnection: HttpsURLConnection
+                try {
+                    urlConnection = uri.openConnection() as HttpsURLConnection
+                    urlConnection.requestMethod = "GET"
+                    urlConnection.readTimeout = 10000
+                    val bufferedReader =
+                        BufferedReader(InputStreamReader(urlConnection.inputStream))
 
-                        val aptekaAprilDTO: Array<SearchAprilDTO> =
-                            Gson().fromJson(
-                                getLines(bufferedReader),
-                                Array<SearchAprilDTO>::class.java
-                            )
-                        handler.post { listener.onLoaded(aptekaAprilDTO.first()) }
+                    val aptekaAprilDTO: Array<SearchAprilDTO> =
+                        Gson().fromJson(
+                            getLines(bufferedReader),
+                            Array<SearchAprilDTO>::class.java
+                        )
+                    handler.post { listener.onLoaded(aptekaAprilDTO.first()) }
 
-                    } catch (e: Exception) {
-                        Log.e("PHARMA", "FAIL CONNECTION", e)
-                        e.printStackTrace()
-                        listener.onFailed(e)
-                    } finally {
-                        urlConnection.disconnect()
-                    }
-                }).start()
+                } catch (e: Exception) {
+                    Log.e("PHARMA", "FAIL CONNECTION", e)
+                    e.printStackTrace()
+                    listener.onFailed(e)
+                } finally {
+                    urlConnection.disconnect()
+                }
+            }.start()
         } catch (ex: MalformedURLException) {
             Log.e("PHARMA", "FAIL URI", ex)
             ex.printStackTrace()

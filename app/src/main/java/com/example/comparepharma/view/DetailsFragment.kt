@@ -1,7 +1,6 @@
 package com.example.comparepharma.view
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -48,9 +47,9 @@ class DetailsFragment : Fragment() {
             dialogBuilder
                 .setMessage("Не удалось отобразить данные")
                 .setCancelable(false)
-                .setPositiveButton("OK", DialogInterface.OnClickListener {
-                        dialog, id -> getFragmentManager()?.popBackStack()
-                })
+                .setPositiveButton("OK") { dialog, id ->
+                    fragmentManager?.popBackStack()
+                }
             val alert = dialogBuilder.create()
             alert.setTitle("Ошибка")
             alert.show()
@@ -73,9 +72,9 @@ class DetailsFragment : Fragment() {
             loadingLayout.hide()
             pharmaDTO.let { medicine ->
                 name.text = medicine.name
-                releaseForm.text = medicine.description.filter { it?.typeID == RELEASE_FORM }.first()?.description
-                dosage.text = medicine.properties.filter { it?.typeID == DOSAGE }.first()?.name
-                vendor.text = medicine.properties.filter { it?.typeID == VENDOR }.first()?.name
+                releaseForm.text = medicine.description.first { it?.typeID == RELEASE_FORM }?.description
+                dosage.text = medicine.properties.first { it?.typeID == DOSAGE }?.name
+                vendor.text = medicine.properties.first { it?.typeID == VENDOR }?.name
                 price.text = medicine.price?.withoutCard.toString()
             }
         }
