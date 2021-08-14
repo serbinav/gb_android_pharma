@@ -5,10 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Medicine constructor(
-    //id возможно придется добавить
+    var id: String,
     var photo: String = "",
     var tradeName: String,
-    var drugOrRecipe: Boolean,
+    var drugOrRecipet: Boolean,
     var releaseForm: String,
     var vendor: String,
     var dosage: String

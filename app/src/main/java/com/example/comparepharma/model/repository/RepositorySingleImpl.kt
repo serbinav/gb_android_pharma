@@ -5,32 +5,16 @@ import com.example.comparepharma.model.data.*
 //Singleton ближе всего к static
 object RepositorySingleImpl : Repository {
 
-    private val pharma = MedicineCost(
-        Medicine(
-            "",
-            "ИФИМОЛ",
-            drugOrRecipe = false,
-            releaseForm = "таблетки",
-            vendor = "ОЗОН,ООО",
-            dosage = "0.5"
-        ), "90"
-    )
-
-    private val pharmaCopy = pharma.copy(
-        medicament = Medicine(
-            tradeName = "ПАНАДОЛ",
-            drugOrRecipe = false,
-            releaseForm = "таблетки",
-            vendor = "ОЗОН,ООО",
-            dosage = "0.5"
-        ), price = "99"
+    private val pharmaCopy = MedicineCost(
+        getDefaultMedicine().copy(), price = "99"
     )
 
     private val medicament: List<MedicineCost> = listOf(
         MedicineCost(
             Medicine(
+                id = "3",
                 tradeName = "ОТ ГРИППА И ПРОСТУДЫ ПОРОШОК СО ВКУСОМ ЛИМОНА",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
@@ -38,8 +22,9 @@ object RepositorySingleImpl : Repository {
         ),
         MedicineCost(
             Medicine(
+                id = "4",
                 tradeName = "САФИСТОН",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
@@ -47,8 +32,9 @@ object RepositorySingleImpl : Repository {
         ),
         MedicineCost(
             Medicine(
+                id = "5",
                 tradeName = "ТЕМПАЛГИН ТРИО",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
@@ -56,8 +42,9 @@ object RepositorySingleImpl : Repository {
         ),
         MedicineCost(
             Medicine(
+                id = "6",
                 tradeName = "ПАРАЦЕТАМОЛ",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
@@ -65,8 +52,9 @@ object RepositorySingleImpl : Repository {
         ),
         MedicineCost(
             Medicine(
+                id = "7",
                 tradeName = "ПАРАЦЕТАМОЛ",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
@@ -74,8 +62,9 @@ object RepositorySingleImpl : Repository {
         ),
         MedicineCost(
             Medicine(
+                id = "8",
                 tradeName = "ПАРАЦЕТАМОЛ",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
@@ -83,14 +72,14 @@ object RepositorySingleImpl : Repository {
         ),
         MedicineCost(
             Medicine(
+                id = "9",
                 tradeName = "ПАРАЦЕТАМОЛ-ЭКО",
-                drugOrRecipe = false,
+                drugOrRecipet = false,
                 releaseForm = "таблетки",
                 vendor = "ОЗОН,ООО",
                 dosage = "0.5"
             )
         ),
-        pharma,
         pharmaCopy
     )
 
