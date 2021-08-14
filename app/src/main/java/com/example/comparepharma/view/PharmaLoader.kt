@@ -17,7 +17,8 @@ import javax.net.ssl.HttpsURLConnection
 class PharmaLoader(
     private val listener: PharmaLoaderListener,
     private val id: String,
-    ) {
+) {
+    private lateinit var handler: Handler
 
     interface PharmaLoaderListener {
         fun onLoaded(searchAprilDTO: SearchAprilDTO)
@@ -29,8 +30,14 @@ class PharmaLoader(
         try {
             val uri =
                 URL("https://web-api.apteka-april.ru/catalog/products?ID=${id}&cityID=168660")
-            val handler = Handler(Looper.myLooper()!!)
-            Thread (
+            val looper = Looper.myLooper()
+            if (looper != null) {
+                handler = Handler(looper)
+            } else {
+                Log.e("PHARMA", "Looper.myLooper() == null")
+                throw RuntimeException("")
+            }
+            Thread(
                 Runnable {
                     lateinit var urlConnection: HttpsURLConnection
                     try {
@@ -41,8 +48,11 @@ class PharmaLoader(
                             BufferedReader(InputStreamReader(urlConnection.inputStream))
 
                         val aptekaAprilDTO: Array<SearchAprilDTO> =
-                            Gson().fromJson(getLines(bufferedReader), Array<SearchAprilDTO>::class.java)
-                        handler.post { listener.onLoaded(aptekaAprilDTO[0]) }
+                            Gson().fromJson(
+                                getLines(bufferedReader),
+                                Array<SearchAprilDTO>::class.java
+                            )
+                        handler.post { listener.onLoaded(aptekaAprilDTO.first()) }
 
                     } catch (e: Exception) {
                         Log.e("PHARMA", "FAIL CONNECTION", e)

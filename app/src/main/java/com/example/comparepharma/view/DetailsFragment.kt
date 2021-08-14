@@ -1,5 +1,7 @@
 package com.example.comparepharma.view
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +12,11 @@ import androidx.fragment.app.Fragment
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.model.dto.*
+import java.lang.RuntimeException
+
+const val VENDOR: Int = 13
+const val RELEASE_FORM: Int = 19
+const val DOSAGE: Int = 20
 
 class DetailsFragment : Fragment() {
 
@@ -33,7 +40,21 @@ class DetailsFragment : Fragment() {
         binding.main.hide()
         binding.loadingLayout.show()
         val loader = PharmaLoader(onLoadListener, medCostBundle.medicament.id)
-        loader.loadMedicineCost()
+        try {
+            loader.loadMedicineCost()
+        }
+        catch(e: RuntimeException){
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+            dialogBuilder
+                .setMessage("Не удалось отобразить данные")
+                .setCancelable(false)
+                .setPositiveButton("OK", DialogInterface.OnClickListener {
+                        dialog, id -> getFragmentManager()?.popBackStack()
+                })
+            val alert = dialogBuilder.create()
+            alert.setTitle("Ошибка")
+            alert.show()
+        }
     }
 
     private val onLoadListener = object : PharmaLoader.PharmaLoaderListener{
@@ -52,9 +73,9 @@ class DetailsFragment : Fragment() {
             loadingLayout.hide()
             pharmaDTO.let { medicine ->
                 name.text = medicine.name
-                releaseForm.text = medicine.description.filter { it?.typeID == 19 }[0]?.description
-                dosage.text = medicine.properties.filter { it?.typeID == 20 }[0]?.name
-                vendor.text = medicine.properties.filter { it?.typeID == 13 }[0]?.name
+                releaseForm.text = medicine.description.filter { it?.typeID == RELEASE_FORM }.first()?.description
+                dosage.text = medicine.properties.filter { it?.typeID == DOSAGE }.first()?.name
+                vendor.text = medicine.properties.filter { it?.typeID == VENDOR }.first()?.name
                 price.text = medicine.price?.withoutCard.toString()
             }
         }
