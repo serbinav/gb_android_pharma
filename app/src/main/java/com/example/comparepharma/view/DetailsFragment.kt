@@ -1,6 +1,9 @@
 package com.example.comparepharma.view
 
-import android.app.AlertDialog
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.model.dto.*
-import java.lang.RuntimeException
+import com.example.comparepharma.service.DetailsService
+import com.example.comparepharma.service.ID_EXTRA
 
 const val VENDOR: Int = 13
 const val RELEASE_FORM: Int = 19
@@ -26,11 +31,13 @@ const val DETAILS_REQUEST_ERROR_EXTRA = "REQUEST ERROR"
 const val DETAILS_REQUEST_ERROR_MESSAGE_EXTRA = "REQUEST ERROR MESSAGE"
 const val DETAILS_URL_MALFORMED_EXTRA = "URL MALFORMED"
 const val DETAILS_RESPONSE_SUCCESS_EXTRA = "RESPONSE SUCCESS"
-const val DETAILS_PHARMA_EXTRA = "PHARMA"
-const val DETAILS_FEELS_LIKE_EXTRA = "FEELS LIKE"
-const val DETAILS_CONDITION_EXTRA = "CONDITION"
-private const val PHARMA_INVALID = -100
-private const val FEELS_LIKE_INVALID = -100
+const val DETAILS_NAME_EXTRA = "NAME"
+const val DETAILS_RELEASE_FORM_EXTRA = "RELEASE FORM"
+const val DETAILS_DOSAGE_EXTRA = "DOSAGE"
+const val DETAILS_VENDOR_EXTRA = "VENDOR"
+const val DETAILS_PRICE_EXTRA = "PRICE"
+private const val EMPTY_INT = 0
+private const val EMPTY_STRING = ""
 private const val PROCESS_ERROR = "Обработка ошибки"
 
 class DetailsFragment : Fragment() {
@@ -39,12 +46,63 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var medCostBundle: MedicineCost
 
+    private val loadResultReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.getStringExtra(DETAILS_LOAD_RESULT_EXTRA)) {
+                DETAILS_INTENT_EMPTY_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_DATA_EMPTY_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_RESPONSE_EMPTY_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_REQUEST_ERROR_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_REQUEST_ERROR_MESSAGE_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_URL_MALFORMED_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_RESPONSE_SUCCESS_EXTRA -> renderData(
+                    SearchAprilDTO(
+                        price = PriceAprilDTO(
+                            EMPTY_INT,
+                            EMPTY_INT,
+                            intent.getIntExtra(DETAILS_PRICE_EXTRA, EMPTY_INT)
+                        ),
+                        name = intent.getStringExtra(DETAILS_NAME_EXTRA),
+                        description = arrayOf(
+                            DescriptionAprilDTO(
+                                EMPTY_STRING, RELEASE_FORM, intent.getStringExtra(
+                                    DETAILS_RELEASE_FORM_EXTRA
+                                )
+                            )
+                        ),
+                        properties = arrayOf(
+                            PropertiesAprilDTO(
+                                EMPTY_INT,
+                                intent.getStringExtra(DETAILS_DOSAGE_EXTRA),
+                                EMPTY_STRING,
+                                DOSAGE
+                            ),
+                            PropertiesAprilDTO(
+                                EMPTY_INT,
+                                intent.getStringExtra(DETAILS_VENDOR_EXTRA),
+                                EMPTY_STRING,
+                                VENDOR
+                            )
+                        ),
+                        ID = EMPTY_INT,
+                        isRecipe = false
+                    )
+                )
+                else -> TODO(PROCESS_ERROR)
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = MainDetailsFragmentBinding.inflate(inflater, container, false)
+        context?.let {
+            LocalBroadcastManager.getInstance(it)
+                .registerReceiver(loadResultReceiver, IntentFilter(DETAILS_INTENT_FILTER))
+        }
         return binding.root
     }
 
@@ -52,46 +110,52 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         medCostBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: MedicineCost()
-        binding.main.hide()
-        binding.loadingLayout.show()
-        val loader = PharmaLoader(onLoadListener, medCostBundle.medicament.id)
-        try {
-            loader.loadMedicineCost()
-        }
-        catch(e: RuntimeException){
-            val dialogBuilder = AlertDialog.Builder(requireContext())
-            dialogBuilder
-                .setMessage("Не удалось отобразить данные")
-                .setCancelable(false)
-                .setPositiveButton("OK") { dialog, id ->
-                    fragmentManager?.popBackStack()
-                }
-            val alert = dialogBuilder.create()
-            alert.setTitle("Ошибка")
-            alert.show()
+        getPharma()
+    }
+
+    private fun getPharma() {
+        binding.main.show()
+        binding.loadingLayout.hide()
+        context?.let {
+            it.startService(Intent(it,DetailsService::class.java).apply {
+                putExtra(ID_EXTRA, medCostBundle.medicament.id)
+            })
         }
     }
 
-    private val onLoadListener = object : PharmaLoader.PharmaLoaderListener{
-        override fun onLoaded(searchAprilDTO: SearchAprilDTO) {
-            displayPharma(searchAprilDTO)
+    override fun onDestroyView() {
+        _binding = null
+        context?.let{
+            LocalBroadcastManager.getInstance(it).unregisterReceiver(loadResultReceiver)
         }
-
-        override fun onFailed(throwable: Throwable) {
-            // Обработка ошибок
-        }
+        super.onDestroyView()
     }
 
-    private fun displayPharma(pharmaDTO: SearchAprilDTO) {
-        with(binding) {
-            main.show()
-            loadingLayout.hide()
-            pharmaDTO.let { medicine ->
-                name.text = medicine.name
-                releaseForm.text = medicine.description.first { it?.typeID == RELEASE_FORM }?.description
-                dosage.text = medicine.properties.first { it?.typeID == DOSAGE }?.name
-                vendor.text = medicine.properties.first { it?.typeID == VENDOR }?.name
-                price.text = medicine.price?.withoutCard.toString()
+    private fun renderData(pharmaDTO: SearchAprilDTO) {
+        binding.main.show()
+        binding.loadingLayout.hide()
+
+        val namePharma = pharmaDTO.name
+        val releaseFormPharma =
+            pharmaDTO.description.first { it?.typeID == RELEASE_FORM }?.description
+        val dosagePharma = pharmaDTO.properties.first { it?.typeID == DOSAGE }?.name
+        val vendorPharma = pharmaDTO.properties.first { it?.typeID == VENDOR }?.name
+        val pricePharma = pharmaDTO.price?.withoutCard
+
+        if (namePharma == EMPTY_STRING ||
+            releaseFormPharma == EMPTY_STRING ||
+            dosagePharma == EMPTY_STRING ||
+            vendorPharma == EMPTY_STRING ||
+            pricePharma == EMPTY_INT
+        ) {
+            TODO(PROCESS_ERROR)
+        } else {
+            with(binding) {
+                name.text = namePharma
+                releaseForm.text = releaseFormPharma
+                dosage.text = dosagePharma
+                vendor.text = vendorPharma
+                price.text = pricePharma.toString()
             }
         }
     }

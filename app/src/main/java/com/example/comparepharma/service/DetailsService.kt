@@ -38,7 +38,7 @@ class DetailsService(name: String = "DetailsService") : IntentService(name) {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun loadMedicineCost(id:String) {
+    fun loadMedicineCost(id: String) {
         try {
             val uri =
                 URL("https://web-api.apteka-april.ru/catalog/products?ID=${id}&cityID=168660")
@@ -87,20 +87,36 @@ class DetailsService(name: String = "DetailsService") : IntentService(name) {
         }
     }
 
-    private fun onSuccessResponse(name: String?, releaseForm: String?, dosage: String?, vendor: String?, toString: String) {
-
+    private fun onSuccessResponse(
+        name: String?,
+        releaseForm: String?,
+        dosage: String?,
+        vendor: String?,
+        price: String
+    ) {
+        putLoadResult(DETAILS_RESPONSE_SUCCESS_EXTRA)
+        broadcastIntent.putExtra(DETAILS_NAME_EXTRA, name)
+        broadcastIntent.putExtra(DETAILS_RELEASE_FORM_EXTRA, releaseForm)
+        broadcastIntent.putExtra(DETAILS_DOSAGE_EXTRA, dosage)
+        broadcastIntent.putExtra(DETAILS_VENDOR_EXTRA, vendor)
+        broadcastIntent.putExtra(DETAILS_PRICE_EXTRA, price)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
     private fun onEmptyResponse() {
-        TODO("Not yet implemented")
+        putLoadResult(DETAILS_RESPONSE_EMPTY_EXTRA)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
     private fun onMalformedURL() {
-        TODO("Not yet implemented")
+        putLoadResult(DETAILS_URL_MALFORMED_EXTRA)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
-    private fun onErrorRequest(s: String) {
-
+    private fun onErrorRequest(str: String) {
+        putLoadResult(DETAILS_REQUEST_ERROR_EXTRA)
+        broadcastIntent.putExtra(DETAILS_REQUEST_ERROR_MESSAGE_EXTRA, str)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
