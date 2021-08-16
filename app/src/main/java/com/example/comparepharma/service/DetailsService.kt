@@ -82,7 +82,7 @@ class DetailsService(name: String = "DetailsService") : IntentService(name) {
                 releaseForm,
                 dosage,
                 vendor,
-                med.price?.withoutCard.toString()
+                med.price?.withoutCard
             )
         }
     }
@@ -92,7 +92,7 @@ class DetailsService(name: String = "DetailsService") : IntentService(name) {
         releaseForm: String?,
         dosage: String?,
         vendor: String?,
-        price: String
+        price: Int?
     ) {
         putLoadResult(DETAILS_RESPONSE_SUCCESS_EXTRA)
         broadcastIntent.putExtra(DETAILS_NAME_EXTRA, name)

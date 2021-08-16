@@ -117,7 +117,7 @@ class DetailsFragment : Fragment() {
         binding.main.show()
         binding.loadingLayout.hide()
         context?.let {
-            it.startService(Intent(it,DetailsService::class.java).apply {
+            it.startService(Intent(it, DetailsService::class.java).apply {
                 putExtra(ID_EXTRA, medCostBundle.medicament.id)
             })
         }
@@ -125,7 +125,7 @@ class DetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
-        context?.let{
+        context?.let {
             LocalBroadcastManager.getInstance(it).unregisterReceiver(loadResultReceiver)
         }
         super.onDestroyView()
