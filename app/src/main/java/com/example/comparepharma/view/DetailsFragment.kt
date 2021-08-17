@@ -1,9 +1,7 @@
 package com.example.comparepharma.view
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.app.AlertDialog
+import android.content.*
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.model.dto.*
@@ -52,7 +51,18 @@ class DetailsFragment : Fragment() {
                 DETAILS_INTENT_EMPTY_EXTRA -> TODO(PROCESS_ERROR)
                 DETAILS_DATA_EMPTY_EXTRA -> TODO(PROCESS_ERROR)
                 DETAILS_RESPONSE_EMPTY_EXTRA -> TODO(PROCESS_ERROR)
-                DETAILS_REQUEST_ERROR_EXTRA -> TODO(PROCESS_ERROR)
+                DETAILS_REQUEST_ERROR_EXTRA -> {
+                    val dialogBuilder = AlertDialog.Builder(requireContext())
+                    dialogBuilder
+                        .setMessage(R.string.request_error)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.positive_button, { dialog, id ->
+                            getFragmentManager()?.popBackStack()
+                        })
+                    val alert = dialogBuilder.create()
+                    alert.setTitle(R.string.error_title)
+                    alert.show()
+                }
                 DETAILS_REQUEST_ERROR_MESSAGE_EXTRA -> TODO(PROCESS_ERROR)
                 DETAILS_URL_MALFORMED_EXTRA -> TODO(PROCESS_ERROR)
                 DETAILS_RESPONSE_SUCCESS_EXTRA -> renderData(

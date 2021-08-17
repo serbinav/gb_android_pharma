@@ -2,8 +2,8 @@
     <string name="app_name">compare pharma</string>
     <string name="search_hint">Введите название лекарства</string>
     <string name="search">Поиск</string>
-    <string name="name_text">Мовалис</string>
-    <string name="price_text">25 p</string>
+    <string name="name_text">Пусто</string>
+    <string name="price_text">0 p</string>
     <string name="error">Ошибка загрузки данных</string>
     <string name="reload">Перезагрузка</string>
     <string name="loading_text">Здесь будет загрузка данных из интернета</string>
@@ -12,9 +12,12 @@
     <string name="release_form_label">Форма выпуска</string>
     <string name="dosage_label">Дозировка</string>
     <string name="vendor_label">Производитель</string>
-    <string name="vendor_text">ООО ОЗОН</string>
-    <string name="dosage_text">0.5 г</string>
+    <string name="vendor_text">ООО КОМПАНИЯ</string>
+    <string name="dosage_text">0.1 г</string>
     <string name="release_form_text">таблетки</string>
     <string name="broadcast_receiver_airplane_on">СООБЩЕНИЕ ОТ ПРИЛОЖЕНИЙ\nВы переключились в режим "ПОЛЕТА". Работа некоторых приложение может быть нарушена!</string>
     <string name="broadcast_receiver_airplane_off">СООБЩЕНИЕ ОТ ПРИЛОЖЕНИЙ\nСпасибо! Работа приложений будет скоро восстановлена</string>
+    <string name="request_error">Не корректный запрос</string>
+    <string name="positive_button">OK</string>
+    <string name="error_title">Ошибка</string>
 </resources>

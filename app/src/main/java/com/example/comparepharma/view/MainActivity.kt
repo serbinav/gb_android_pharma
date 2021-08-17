@@ -7,8 +7,6 @@ import com.google.android.material.button.MaterialButton
 import com.example.comparepharma.databinding.MainActivityBinding
 import java.util.*
 
-const val PARACETAMOL: String = "ПАРАЦЕТАМОЛ"
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
