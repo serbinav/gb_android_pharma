@@ -22,6 +22,12 @@
             </intent-filter>
         </activity>
         <service android:name=".service.DetailsService"/>
+        
+        <receiver android:name=".service.MainBroadcastReceiver">
+            <intent-filter >
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

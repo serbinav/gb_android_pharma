@@ -15,4 +15,6 @@
     <string name="vendor_text">ООО ОЗОН</string>
     <string name="dosage_text">0.5 г</string>
     <string name="release_form_text">таблетки</string>
+    <string name="broadcast_receiver_text">СООБЩЕНИЕ ОТ ПРИЛОЖЕНИЙ\n
+        Вы переключились в режим "ПОЛЕТА". Работа некоторых приложение может быть нарушена!</string>
 </resources>
