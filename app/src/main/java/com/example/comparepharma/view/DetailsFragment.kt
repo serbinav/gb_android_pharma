@@ -18,24 +18,6 @@ const val VENDOR: Int = 13
 const val RELEASE_FORM: Int = 19
 const val DOSAGE: Int = 20
 
-const val DETAILS_INTENT_FILTER = "DETAILS INTENT FILTER"
-const val DETAILS_LOAD_RESULT_EXTRA = "LOAD RESULT"
-const val DETAILS_INTENT_EMPTY_EXTRA = "INTENT IS EMPTY"
-const val DETAILS_DATA_EMPTY_EXTRA = "DATA IS EMPTY"
-const val DETAILS_RESPONSE_EMPTY_EXTRA = "RESPONSE IS EMPTY"
-const val DETAILS_REQUEST_ERROR_EXTRA = "REQUEST ERROR"
-const val DETAILS_REQUEST_ERROR_MESSAGE_EXTRA = "REQUEST ERROR MESSAGE"
-const val DETAILS_URL_MALFORMED_EXTRA = "URL MALFORMED"
-const val DETAILS_RESPONSE_SUCCESS_EXTRA = "RESPONSE SUCCESS"
-const val DETAILS_NAME_EXTRA = "NAME"
-const val DETAILS_RELEASE_FORM_EXTRA = "RELEASE FORM"
-const val DETAILS_DOSAGE_EXTRA = "DOSAGE"
-const val DETAILS_VENDOR_EXTRA = "VENDOR"
-const val DETAILS_PRICE_EXTRA = "PRICE"
-private const val EMPTY_INT = 0
-private const val EMPTY_STRING = ""
-private const val PROCESS_ERROR = "Обработка ошибки"
-
 class DetailsFragment : Fragment() {
 
     private var _binding: MainDetailsFragmentBinding? = null
@@ -64,8 +46,8 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         medCostBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: MedicineCost()
-        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        viewModel.getPharmaFromRemoteSource("https://web-api.apteka-april.ru/catalog/products?ID=${medCostBundle.medicament.id}&cityID=168660")
+        viewModel.detailsLiveData.observe(viewLifecycleOwner) { renderData(it) }
+        viewModel.getPharmaFromRemoteSource(medCostBundle.medicament.id.toInt())
     }
 
     private fun renderData(appState: AppState) {
@@ -86,7 +68,7 @@ class DetailsFragment : Fragment() {
                     getString(R.string.error_title),
                     getString(R.string.reload)
                 ) {
-                    viewModel.getPharmaFromRemoteSource("https://web-api.apteka-april.ru/catalog/products?ID=${medCostBundle.medicament.id}&cityID=168660")
+                    viewModel.getPharmaFromRemoteSource(medCostBundle.medicament.id.toInt())
                 }
             }
         }

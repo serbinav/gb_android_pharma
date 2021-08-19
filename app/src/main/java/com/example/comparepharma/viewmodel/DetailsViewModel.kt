@@ -8,32 +8,31 @@ import com.example.comparepharma.model.dto.SearchAprilDTO
 import com.example.comparepharma.model.repository.DetailsRepository
 import com.example.comparepharma.model.repository.DetailsRepositoryImpl
 import com.example.comparepharma.model.repository.RemoteDataSource
-import com.google.gson.Gson
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import java.io.IOException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val SERVER_ERROR = "Ошибка сервера"
 private const val REQUEST_ERROR = "Ошибка запроса на сервер"
 private const val CORRUPTED_ERROR = "Неполные данные"
 
 class DetailsViewModel(
-    private val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
+    val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsRepository: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource())
 ) : ViewModel() {
-    fun getLiveData() = detailsLiveData
 
-    fun getPharmaFromRemoteSource(requestLink: String) {
+    fun getPharmaFromRemoteSource(id: Int) {
         detailsLiveData.value = AppState.Loading
-        detailsRepository.getPharmaDetailsFromServer(requestLink, callback)
+        detailsRepository.getPharmaDetailsFromServer(id, callback)
     }
 
-    private val callback = object : Callback {
+    private val callback = object : Callback<List<SearchAprilDTO>> {
 
-        @Throws(IOException::class)
-        override fun onResponse(call: Call, response: Response) {
-            val serverResponse = response.body()?.string()
+        override fun onResponse(
+            call: Call<List<SearchAprilDTO>>,
+            response: Response<List<SearchAprilDTO>>
+        ) {
+            val serverResponse: List<SearchAprilDTO>? = response.body()
             detailsLiveData.postValue(
                 if (response.isSuccessful && serverResponse != null) {
                     checkResponse(serverResponse)
@@ -43,15 +42,13 @@ class DetailsViewModel(
             )
         }
 
-        override fun onFailure(call: Call?, e: IOException?) {
-            detailsLiveData.postValue(AppState.Error(Throwable(e?.message ?: REQUEST_ERROR)))
+        override fun onFailure(call: Call<List<SearchAprilDTO>>, t: Throwable) {
+            detailsLiveData.postValue(AppState.Error(Throwable(t.message ?: REQUEST_ERROR)))
         }
     }
 
-    fun checkResponse(serverResponse: String): AppState {
-        val searchAprilDTO: Array<SearchAprilDTO> =
-            Gson().fromJson(serverResponse, Array<SearchAprilDTO>::class.java)
-        searchAprilDTO.first().apply {
+    fun checkResponse(serverResponse: List<SearchAprilDTO>): AppState {
+        serverResponse.first().apply {
             val description = description.first()
             val properties = properties.first()
             return if (name == null || description == null || properties == null || price == null) {

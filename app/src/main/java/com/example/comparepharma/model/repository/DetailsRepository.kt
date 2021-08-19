@@ -1,7 +1,8 @@
 package com.example.comparepharma.model.repository
 
-import okhttp3.Callback
+import com.example.comparepharma.model.dto.SearchAprilDTO
+import retrofit2.Callback
 
 interface DetailsRepository {
-    fun getPharmaDetailsFromServer(requestLink: String, callback: Callback)
+    fun getPharmaDetailsFromServer(id: Int, callback: Callback<List<SearchAprilDTO>>)
 }
