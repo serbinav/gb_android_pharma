@@ -3,15 +3,11 @@ package com.example.comparepharma.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.data.Medicine
-import com.example.comparepharma.model.data.MedicineCost
+import com.example.comparepharma.model.data.convertDtoToModel
 import com.example.comparepharma.model.dto.SearchAprilDTO
 import com.example.comparepharma.model.repository.DetailsRepository
 import com.example.comparepharma.model.repository.DetailsRepositoryImpl
 import com.example.comparepharma.model.repository.RemoteDataSource
-import com.example.comparepharma.view.DOSAGE
-import com.example.comparepharma.view.RELEASE_FORM
-import com.example.comparepharma.view.VENDOR
 import com.google.gson.Gson
 import okhttp3.Call
 import okhttp3.Callback
@@ -40,34 +36,7 @@ class DetailsViewModel(
             val serverResponse = response.body()?.string()
             detailsLiveData.postValue(
                 if (response.isSuccessful && serverResponse != null) {
-                    val searchAprilDTO: Array<SearchAprilDTO> =
-                        Gson().fromJson(serverResponse, Array<SearchAprilDTO>::class.java)
-                    val name = searchAprilDTO.first().name
-                    val releaseFormDTO =
-                        searchAprilDTO.first().description.first { it?.typeID == RELEASE_FORM }?.description
-                    val dosageDTO =
-                        searchAprilDTO.first().properties.first { it?.typeID == DOSAGE }?.name
-                    val vendorDTO =
-                        searchAprilDTO.first().properties.first { it?.typeID == VENDOR }?.name
-                    val price = searchAprilDTO.first().price?.withoutCard
-                    if (name == null || releaseFormDTO == null || dosageDTO == null || vendorDTO == null || price == null) {
-                        AppState.Error(Throwable(CORRUPTED_ERROR))
-                    } else {
-                        AppState.Success(
-                            listOf(
-                                MedicineCost(
-                                    Medicine(
-                                        id = "1",
-                                        tradeName = name,
-                                        drugOrRecipet = false,
-                                        releaseForm = releaseFormDTO,
-                                        vendor = vendorDTO,
-                                        dosage = dosageDTO
-                                    ), price.toString()
-                                )
-                            )
-                        )
-                    }
+                    checkResponse(serverResponse)
                 } else {
                     AppState.Error(Throwable(SERVER_ERROR))
                 }
@@ -76,6 +45,20 @@ class DetailsViewModel(
 
         override fun onFailure(call: Call?, e: IOException?) {
             detailsLiveData.postValue(AppState.Error(Throwable(e?.message ?: REQUEST_ERROR)))
+        }
+    }
+
+    fun checkResponse(serverResponse: String): AppState {
+        val searchAprilDTO: Array<SearchAprilDTO> =
+            Gson().fromJson(serverResponse, Array<SearchAprilDTO>::class.java)
+        searchAprilDTO.first().apply {
+            val description = description.first()
+            val properties = properties.first()
+            return if (name == null || description == null || properties == null || price == null) {
+                AppState.Error(Throwable(CORRUPTED_ERROR))
+            } else {
+                AppState.Success(convertDtoToModel(this))
+            }
         }
     }
 }
