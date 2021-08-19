@@ -21,8 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".service.DetailsService"/>
-        
         <receiver android:name=".service.MainBroadcastReceiver">
             <intent-filter >
                 <action android:name="android.intent.action.AIRPLANE_MODE"/>
