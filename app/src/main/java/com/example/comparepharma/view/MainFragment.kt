@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
         }
 
         binding.recyclerView.adapter = adapter
-        binding.mainFragmentFAB.setOnClickListener {
+        binding.floatingActionButton.setOnClickListener {
             changeAptekaDataSet()
         }
 
@@ -75,10 +75,10 @@ class MainFragment : Fragment() {
     private fun changeAptekaDataSet() {
         if (isDataSetAptekaRu) {
             viewModel.getPharmaFromLocalAptekaRu()
-            binding.mainFragmentFAB.setImageResource(R.drawable.apteka_ru)
+            binding.floatingActionButton.setImageResource(R.drawable.apteka_ru)
         } else {
             viewModel.getPharmaFromLocalAptekaApril()
-            binding.mainFragmentFAB.setImageResource(R.drawable.apteka_april)
+            binding.floatingActionButton.setImageResource(R.drawable.apteka_april)
         }
         isDataSetAptekaRu = !isDataSetAptekaRu
     }
@@ -94,7 +94,7 @@ class MainFragment : Fragment() {
             }
             is AppState.Error -> {
                 binding.loadingLayout.hide()
-                binding.mainFragmentFAB.showSnackBar(
+                binding.floatingActionButton.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload)
                 ) {
