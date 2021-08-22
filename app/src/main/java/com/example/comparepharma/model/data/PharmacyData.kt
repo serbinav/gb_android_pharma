@@ -10,7 +10,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "540".addCurrencySymbol()
     ),
     MedicineCost(
@@ -20,7 +21,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "144"
     ),
     MedicineCost(
@@ -30,7 +32,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "134"
     ),
     MedicineCost(
@@ -40,7 +43,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "58"
     ),
     MedicineCost(
@@ -50,7 +54,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "70"
     ),
     MedicineCost(
@@ -60,7 +65,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "62"
     ),
     MedicineCost(
@@ -70,7 +76,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "78"
     ),
     MedicineCost(
@@ -80,7 +87,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "94"
     ),
     MedicineCost(
@@ -90,7 +98,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "68"
     ),
     MedicineCost(
@@ -100,7 +109,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "31"
     ),
 )
