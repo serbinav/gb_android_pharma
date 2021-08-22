@@ -11,13 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.Constants
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
-
-const val VENDOR: Int = 13
-const val RELEASE_FORM: Int = 19
-const val DOSAGE: Int = 20
 
 class DetailsFragment : Fragment() {
 
@@ -85,7 +82,7 @@ class DetailsFragment : Fragment() {
 
             Picasso
                 .get()
-                .load("https://pictures.apteka-april.ru/products/259198/jpg/23ac153c269eb01c65b5c2d826447e87.jpg/l")
+                .load(Constants.TEST_IMG)
                 .into(image)
         }
     }

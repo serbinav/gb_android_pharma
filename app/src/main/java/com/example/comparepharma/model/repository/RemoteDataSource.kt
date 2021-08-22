@@ -1,5 +1,6 @@
 package com.example.comparepharma.model.repository
 
+import com.example.comparepharma.model.Constants
 import com.example.comparepharma.model.dto.SearchAprilDTO
 import com.google.gson.GsonBuilder
 import retrofit2.Callback
@@ -8,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RemoteDataSource{
     private val pharmaAPI = Retrofit.Builder()
-        .baseUrl("https://web-api.apteka-april.ru/")
+        .baseUrl(Constants.APTEKA_APRIL_BASE_URL)
         .addConverterFactory(
             GsonConverterFactory.create(
                 GsonBuilder().setLenient().create()
