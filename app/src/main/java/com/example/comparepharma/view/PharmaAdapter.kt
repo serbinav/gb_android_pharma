@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comparepharma.databinding.ItemBinding
 import com.example.comparepharma.model.data.MedicineCost
+import com.squareup.picasso.Picasso
 
 class PharmaAdapter :
     RecyclerView.Adapter<PharmaAdapter.PharmaViewHolder>() {
@@ -30,6 +31,10 @@ class PharmaAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cost: MedicineCost) {
             binding.apply {
+                Picasso
+                    .get()
+                    .load(cost.medicament.photo+"/l")
+                    .into(imageView)
                 nameOnImg.text = cost.medicament.tradeName
                 priceOnImg.text = cost.price
                 root.setOnClickListener {
