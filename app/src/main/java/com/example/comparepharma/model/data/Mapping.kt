@@ -25,7 +25,8 @@ fun convertDtoToModel(searchAprilDTO: SearchAprilDTO): List<MedicineCost> {
                         drugOrRecipet = false,
                         releaseForm = releaseFormDTO,
                         vendor = vendorDTO,
-                        dosage = dosageDTO
+                        dosage = dosageDTO,
+                        photo = this.images.first() ?: ""
                     ), price.toString()
                 )
             )

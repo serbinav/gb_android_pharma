@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.Constants
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
@@ -82,7 +81,7 @@ class DetailsFragment : Fragment() {
 
             Picasso
                 .get()
-                .load(Constants.TEST_IMG)
+                .load(pharma.medicament.photo+"/l")
                 .into(image)
         }
     }
