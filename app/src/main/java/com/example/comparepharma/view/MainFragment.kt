@@ -1,15 +1,18 @@
 package com.example.comparepharma.view
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.Constants
 import com.example.comparepharma.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -42,7 +45,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter.setOnItemViewClickListener { cost ->
-            activity?.supportFragmentManager?.apply {
+            requireActivity().supportFragmentManager.apply {
                 val bundle = Bundle()
                 bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
                 beginTransaction()
@@ -63,24 +66,46 @@ class MainFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.floatingActionButton.setOnClickListener {
             changeAptekaDataSet()
+            saveListOfPharma()
         }
 
         super.onViewCreated(view, savedInstanceState)
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
-        viewModel.getPharmaFromLocalAptekaApril()
+        loadListofPharma()
+        showAptekaDataSet()
+    }
+
+    private fun loadListofPharma() {
+        requireActivity().apply {
+            isDataSetAptekaRu = getPreferences(Context.MODE_PRIVATE)
+                .getBoolean(Constants.IS_APTEKA_RU_KEY, true)
+        }
+    }
+
+    private fun saveListOfPharma() {
+        requireActivity().apply {
+            getPreferences(Context.MODE_PRIVATE).edit {
+                putBoolean(Constants.IS_APTEKA_RU_KEY, isDataSetAptekaRu)
+                apply()
+            }
+        }
     }
 
     private fun changeAptekaDataSet() {
+        isDataSetAptekaRu = !isDataSetAptekaRu
+        showAptekaDataSet()
+    }
+
+    private fun showAptekaDataSet() {
         if (isDataSetAptekaRu) {
             viewModel.getPharmaFromLocalAptekaRu()
-            binding.floatingActionButton.setImageResource(R.drawable.apteka_ru)
+            binding.floatingActionButton.setImageResource(R.drawable.apteka_april)
         } else {
             viewModel.getPharmaFromLocalAptekaApril()
-            binding.floatingActionButton.setImageResource(R.drawable.apteka_april)
+            binding.floatingActionButton.setImageResource(R.drawable.apteka_ru)
         }
-        isDataSetAptekaRu = !isDataSetAptekaRu
     }
 
     private fun renderData(data: AppState) {
