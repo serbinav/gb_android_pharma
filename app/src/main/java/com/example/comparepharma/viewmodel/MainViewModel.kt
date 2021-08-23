@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.Constants
 import com.example.comparepharma.model.repository.RepositorySingleImpl
 import com.example.comparepharma.model.repository.Repository
-
-private const val WAIT_LONG: Long = 3000
 
 class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
     ViewModel() {
@@ -23,7 +22,7 @@ class MainViewModel(private val repository: Repository = RepositorySingleImpl) :
     private fun getPharmaFromLocalSource(isAptekaRu: Boolean) {
         liveDataToObserver.value = AppState.Loading
         Thread {
-            Thread.sleep(WAIT_LONG)
+            Thread.sleep(Constants.LONG_WAIT)
             liveDataToObserver.postValue(
                 AppState.Success(
                     if (isAptekaRu) {

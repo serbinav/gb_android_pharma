@@ -13,10 +13,7 @@ import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.DetailsViewModel
-
-const val VENDOR: Int = 13
-const val RELEASE_FORM: Int = 19
-const val DOSAGE: Int = 20
+import com.squareup.picasso.Picasso
 
 class DetailsFragment : Fragment() {
 
@@ -81,6 +78,11 @@ class DetailsFragment : Fragment() {
             dosage.text = pharma.medicament.dosage
             vendor.text = pharma.medicament.vendor
             price.text = pharma.price
+
+            Picasso
+                .get()
+                .load(pharma.medicament.photo+"/l")
+                .into(image)
         }
     }
 

@@ -6,5 +6,6 @@ data class SearchAprilDTO(
     val name: String?,
     val isRecipe: Boolean?,
     val description: Array<DescriptionAprilDTO?>,
-    val properties: Array<PropertiesAprilDTO?>
+    val properties: Array<PropertiesAprilDTO?>,
+    val images: Array<String?>
 )

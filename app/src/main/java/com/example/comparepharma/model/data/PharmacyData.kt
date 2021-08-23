@@ -10,7 +10,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "540".addCurrencySymbol()
     ),
     MedicineCost(
@@ -20,7 +21,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "144"
     ),
     MedicineCost(
@@ -30,7 +32,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "134"
     ),
     MedicineCost(
@@ -40,7 +43,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "58"
     ),
     MedicineCost(
@@ -50,7 +54,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "70"
     ),
     MedicineCost(
@@ -60,7 +65,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "62"
     ),
     MedicineCost(
@@ -70,7 +76,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "78"
     ),
     MedicineCost(
@@ -80,7 +87,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "94"
     ),
     MedicineCost(
@@ -90,7 +98,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "68"
     ),
     MedicineCost(
@@ -100,7 +109,8 @@ fun getAptekaRuPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = ""
         ), price = "31"
     ),
 )
@@ -113,7 +123,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/234453/png/0b49654b3b852b8c9eebf8f86e66eed2.png"
         ), price = "68".addCurrencySymbol()
     ),
     MedicineCost(
@@ -123,7 +134,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/43962/png/bf03078d77b87234b6db9d02355ffbf7.png"
         ), price = "12"
     ),
     MedicineCost(
@@ -133,7 +145,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/243246/png/20e735156df1ff52f9ed73e72549b290.png"
         ), price = "140"
     ),
     MedicineCost(
@@ -143,7 +156,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/265418/jpg/17df9ae4db98e6e907f82494dfc88af1.jpg"
         ), price = "20"
     ),
     MedicineCost(
@@ -153,7 +167,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/239973/png/58339a2aa0e79e868c07ca267df057a5.png"
         ), price = "140"
     ),
     MedicineCost(
@@ -163,7 +178,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/84629/png/e0c50daefc1dee40b9472f7911f1da4f.png"
         ), price = "68"
     ),
     MedicineCost(
@@ -173,7 +189,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/219747/jpg/97567d26094abbf22b29360e77dce05a.jpg"
         ), price = "131"
     ),
     MedicineCost(
@@ -183,7 +200,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/259198/jpg/23ac153c269eb01c65b5c2d826447e87.jpg"
         ), price = "82"
     ),
     MedicineCost(
@@ -193,7 +211,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/10582/png/690b43c72dc0c11c1823ebef4b22f142.png"
         ), price = "56"
     ),
     MedicineCost(
@@ -203,7 +222,8 @@ fun getAptekaAprilPharma() = listOf(
             drugOrRecipet = false,
             releaseForm = "таблетки",
             vendor = "ОЗОН,ООО",
-            dosage = "0.5"
+            dosage = "0.5",
+            photo = "https://pictures.apteka-april.ru/products/29885/png/d38368e2008e54a813920c533c58d678.png"
         ), price = "96"
     )
 )

@@ -1,15 +1,15 @@
 package com.example.comparepharma.model.data
 
+import com.example.comparepharma.model.Constants
 import com.example.comparepharma.model.dto.SearchAprilDTO
-import com.example.comparepharma.view.DOSAGE
-import com.example.comparepharma.view.RELEASE_FORM
-import com.example.comparepharma.view.VENDOR
 
 fun convertDtoToModel(searchAprilDTO: SearchAprilDTO): List<MedicineCost> {
     searchAprilDTO.apply {
-        val releaseFormDTO = description.first { it?.typeID == RELEASE_FORM }?.description
-        val vendorDTO = properties.first { it?.typeID == VENDOR }?.name
-        val dosageDTO = properties.first { it?.typeID == DOSAGE }?.name
+        val releaseFormDTO =
+            description.first { it?.typeID == Constants.DESCRIPTION_NUMBER_RELEASE_FORM }?.description
+        val vendorDTO =
+            properties.first { it?.typeID == Constants.PROPERTIES_NUMBER_VENDOR }?.name
+        val dosageDTO = properties.first { it?.typeID == Constants.PROPERTIES_NUMBER_DOSAGE }?.name
         val price = price?.withoutCard
         if (name != null &&
             releaseFormDTO != null &&
@@ -25,7 +25,8 @@ fun convertDtoToModel(searchAprilDTO: SearchAprilDTO): List<MedicineCost> {
                         drugOrRecipet = false,
                         releaseForm = releaseFormDTO,
                         vendor = vendorDTO,
-                        dosage = dosageDTO
+                        dosage = dosageDTO,
+                        photo = this.images.first() ?: ""
                     ), price.toString()
                 )
             )
