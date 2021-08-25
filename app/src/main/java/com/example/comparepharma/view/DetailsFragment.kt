@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainDetailsFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.model.data.Medicine
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.main_details_fragment.*
 
 class DetailsFragment : Fragment() {
 
@@ -53,6 +55,10 @@ class DetailsFragment : Fragment() {
                 binding.main.show()
                 binding.loadingLayout.hide()
                 setPharma(appState.pharmaData.first())
+                favorite.setOnClickListener {
+                    favorite.setImageResource(R.drawable.star_full)
+                    saveFavorite(appState.pharmaData.first())
+                }
             }
             is AppState.Loading -> {
                 binding.main.hide()
@@ -84,6 +90,20 @@ class DetailsFragment : Fragment() {
                 .load(pharma.medicament.photo+"/l")
                 .into(image)
         }
+    }
+
+    private fun saveFavorite(pharma: MedicineCost){
+        viewModel.savePharmaToDB(MedicineCost(
+            Medicine(
+                id = pharma.medicament.id,
+                tradeName = pharma.medicament.tradeName,
+                drugOrRecipet = false,
+                releaseForm = "",
+                vendor = "",
+                dosage = "",
+            ),
+            pharma.price
+        ))
     }
 
     companion object {

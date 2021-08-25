@@ -20,4 +20,6 @@
     <string name="request_error">Не корректный запрос</string>
     <string name="positive_button">OK</string>
     <string name="error_title">Ошибка</string>
+    <string name="error_create_db">Application is null meanwhile creating database</string>
+    <string name="menu_title_favorites">Избранные</string>
 </resources>

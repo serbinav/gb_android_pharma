@@ -17,6 +17,8 @@ import com.example.comparepharma.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
+    //56 мин
+    //1 28 мин
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -111,14 +113,14 @@ class MainFragment : Fragment() {
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Success -> {
-                binding.loadingLayout.hide()
+                binding.includeLoadingLayout.loadingLayout.hide()
                 adapter.setPharma(data.pharmaData)
             }
             is AppState.Loading -> {
-                binding.loadingLayout.show()
+                binding.includeLoadingLayout.loadingLayout.show()
             }
             is AppState.Error -> {
-                binding.loadingLayout.hide()
+                binding.includeLoadingLayout.loadingLayout.hide()
                 binding.floatingActionButton.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload)

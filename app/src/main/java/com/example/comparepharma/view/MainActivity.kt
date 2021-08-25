@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.example.comparepharma.R
 import com.google.android.material.button.MaterialButton
 import com.example.comparepharma.databinding.MainActivityBinding
+import kotlinx.android.synthetic.main.main_details_fragment.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +27,13 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(binding.container.id, MainFragment.newInstance())
                 .commitNow()
+        }
+
+        binding.buttonFavorites.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, FavoritesFragment.newInstance())
+                .addToBackStack("")
+                .commitAllowingStateLoss()
         }
     }
 }
