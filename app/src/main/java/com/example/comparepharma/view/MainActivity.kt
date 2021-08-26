@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainActivityBinding
-import kotlinx.android.synthetic.main.main_details_fragment.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

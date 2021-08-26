@@ -9,17 +9,16 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.R
-import com.example.comparepharma.databinding.MainDetailsFragmentBinding
+import com.example.comparepharma.databinding.DetailsFragmentBinding
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.data.Medicine
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.main_details_fragment.*
 
 class DetailsFragment : Fragment() {
 
-    private var _binding: MainDetailsFragmentBinding? = null
+    private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var medCostBundle: MedicineCost
 
@@ -32,7 +31,7 @@ class DetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = MainDetailsFragmentBinding.inflate(inflater, container, false)
+        _binding = DetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -55,8 +54,8 @@ class DetailsFragment : Fragment() {
                 binding.main.show()
                 binding.loadingLayout.hide()
                 setPharma(appState.pharmaData.first())
-                favorite.setOnClickListener {
-                    favorite.setImageResource(R.drawable.star_full)
+                binding.favorite.setOnClickListener {
+                    binding.favorite.setImageResource(R.drawable.star_full)
                     saveFavorite(appState.pharmaData.first())
                 }
             }
