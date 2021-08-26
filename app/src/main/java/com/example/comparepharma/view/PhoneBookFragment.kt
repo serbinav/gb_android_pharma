@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.databinding.PhoneBookFragmentBinding
+import com.example.comparepharma.model.ContactState
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
 
 class PhoneBookFragment : Fragment() {
@@ -22,17 +23,40 @@ class PhoneBookFragment : Fragment() {
         ViewModelProvider(this).get(PhoneBookViewModel::class.java)
     }
 
+    private val adapter: ContactAdapter by lazy {
+        ContactAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = PhoneBookFragmentBinding.inflate(inflater, container, false)
+        binding.contactList.adapter = adapter
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.contacts.observe(viewLifecycleOwner) {
+            renderData(it)
+        }
         checkPermission()
+    }
+
+    private fun renderData(data: ContactState) {
+        when (data) {
+            is ContactState.Success -> {
+                binding.contactList.show()
+                binding.includeLoadingLayout.loadingLayout.hide()
+                adapter.contacts = data.data
+            }
+            is ContactState.Loading -> {
+                binding.contactList.hide()
+                binding.includeLoadingLayout.loadingLayout.show()
+            }
+        }
     }
 
     private fun checkPermission() {
@@ -79,7 +103,7 @@ class PhoneBookFragment : Fragment() {
         }
 
     private fun getContacts() {
-        "read contact list".showToast(requireContext())
+        viewModel.getContacts()
     }
 
     override fun onDestroyView() {

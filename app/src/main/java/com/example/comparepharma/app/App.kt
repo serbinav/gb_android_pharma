@@ -1,6 +1,7 @@
 package com.example.comparepharma.app
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.example.comparepharma.model.Constants
 import com.example.comparepharma.room.FavoritesDao
@@ -12,11 +13,13 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         appInstance = this
+        context = applicationContext
     }
 
     companion object {
         private var appInstance: App? = null
         private var db: FavoritesDataBase? = null
+        lateinit var context: Context
 
         fun getFavoritesDao(): FavoritesDao {
             if (db == null) {
@@ -39,4 +42,14 @@ class App : Application() {
             return db!!.favoritesDao()
         }
     }
+}
+
+interface IContextProvider{
+    val context: Context
+}
+
+object ContextProvider: IContextProvider{
+    override val context: Context
+        get() = App.context
+
 }
