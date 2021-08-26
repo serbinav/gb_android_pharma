@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/default_padding"
         android:paddingBottom="@dimen/default_padding"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/button_search"
@@ -45,6 +46,18 @@
         android:src="@drawable/ic_baseline_star_half_24"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintLeft_toRightOf="@+id/button_search"
+        app:layout_constraintRight_toLeftOf="@+id/button_phone_book"
+        app:layout_constraintTop_toTopOf="@+id/search" />
+
+    <ImageButton
+        android:id="@+id/button_phone_book"
+        android:layout_width="@dimen/img_size"
+        android:layout_height="@dimen/img_size"
+        android:background="@color/img_background"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_phone_24"
+        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintLeft_toRightOf="@+id/button_favorites"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search" />
 

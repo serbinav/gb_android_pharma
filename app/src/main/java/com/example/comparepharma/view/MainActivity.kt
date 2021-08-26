@@ -2,7 +2,7 @@ package com.example.comparepharma.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
+import android.view.View
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainActivityBinding
 import kotlinx.android.synthetic.main.main_details_fragment.*
@@ -17,10 +17,15 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val button: ImageButton = binding.buttonSearch
-
-        button.setOnClickListener {
-            getString(R.string.loading_text).showToast(this@MainActivity)
+        binding.buttonSearch.setOnClickListener {
+            with(binding.search) {
+                if (visibility == View.VISIBLE) {
+                    getString(R.string.loading_text).showToast(this@MainActivity)
+                    visibility = View.GONE
+                } else {
+                    visibility = View.VISIBLE
+                }
+            }
         }
 
         if (savedInstanceState == null) {
