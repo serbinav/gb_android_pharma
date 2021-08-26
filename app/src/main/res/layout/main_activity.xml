@@ -23,10 +23,13 @@
             android:hint="@string/search_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/button_search"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/img_size"
+        android:layout_height="@dimen/img_size"
+        android:background="@color/img_background"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_search_24"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintLeft_toRightOf="@+id/search"
@@ -35,11 +38,11 @@
 
     <ImageButton
         android:id="@+id/button_favorites"
-        android:layout_width="@dimen/star_size"
-        android:layout_height="@dimen/star_size"
-        android:src="@drawable/star_half"
+        android:layout_width="@dimen/img_size"
+        android:layout_height="@dimen/img_size"
+        android:background="@color/img_background"
         android:scaleType="fitXY"
-        android:background="@color/star_background"
+        android:src="@drawable/ic_baseline_star_half_24"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintLeft_toRightOf="@+id/button_search"
         app:layout_constraintRight_toRightOf="parent"

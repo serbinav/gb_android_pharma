@@ -17,12 +17,12 @@
 
             <ImageButton
                 android:id="@+id/favorite"
-                android:layout_width="@dimen/star_size"
-                android:layout_height="@dimen/star_size"
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
                 android:src="@drawable/star_grey_185"
                 android:scaleType="fitXY"
-                android:background="@color/star_background"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/img_background"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
