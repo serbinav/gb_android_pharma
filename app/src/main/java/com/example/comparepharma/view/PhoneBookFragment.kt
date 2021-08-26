@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.databinding.PhoneBookFragmentBinding
-import com.example.comparepharma.model.Constants
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
 
 class PhoneBookFragment : Fragment() {
@@ -49,7 +49,7 @@ class PhoneBookFragment : Fragment() {
                         .setTitle("Доступ к контактам")
                         .setMessage("Объяснение")
                         .setPositiveButton("Предоставить доступ") { _, _ ->
-                            requestPermissions()
+                            requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
                         }
                         .setNegativeButton("Не надо") { dialog, _ ->
                             dialog.dismiss()
@@ -57,41 +57,29 @@ class PhoneBookFragment : Fragment() {
                         .create()
                         .show()
                 }
-                else -> requestPermissions()
+                else -> requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
         }
     }
 
-    private fun requestPermissions() {
-        requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), Constants.REQUEST_CODE)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            Constants.REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
-                    getContacts()
-                } else {
-                    context.let {
-                        AlertDialog.Builder(it)
-                            .setTitle("Доступ к контактам")
-                            .setMessage("Объяснение")
-                            .setNegativeButton("Закрыть") { dialog, _ -> dialog.dismiss() }
-                            .create()
-                            .show()
-                    }
-                    return
+    private val requestPermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                getContacts()
+            } else {
+                context.let {
+                    AlertDialog.Builder(it)
+                        .setTitle("Доступ к контактам")
+                        .setMessage("Объяснение")
+                        .setNegativeButton("Закрыть") { dialog, _ -> dialog.dismiss() }
+                        .create()
+                        .show()
                 }
             }
         }
-    }
 
-    private fun getContacts(){
-        
+    private fun getContacts() {
+        "read contact list".showToast(requireContext())
     }
 
     override fun onDestroyView() {
