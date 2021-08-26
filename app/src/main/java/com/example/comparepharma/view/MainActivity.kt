@@ -39,5 +39,12 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
+
+        binding.buttonPhoneBook.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, PhoneBookFragment.newInstance())
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
     }
 }

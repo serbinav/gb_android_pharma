@@ -21,4 +21,5 @@ object Constants {
     const val CORRUPTED_ERROR = "Неполные данные"
     const val IS_APTEKA_RU_KEY = "LIST_OF_APTEKA_RU_KEY"
     const val DB_NAME = "Favorites.db"
+    const val REQUEST_CODE = 42
 }
