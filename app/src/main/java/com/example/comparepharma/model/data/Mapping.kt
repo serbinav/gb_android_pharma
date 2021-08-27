@@ -2,6 +2,7 @@ package com.example.comparepharma.model.data
 
 import com.example.comparepharma.model.Constants
 import com.example.comparepharma.model.dto.SearchAprilDTO
+import com.example.comparepharma.room.FavoritesEntity
 
 fun convertDtoToModel(searchAprilDTO: SearchAprilDTO): List<MedicineCost> {
     searchAprilDTO.apply {
@@ -33,4 +34,29 @@ fun convertDtoToModel(searchAprilDTO: SearchAprilDTO): List<MedicineCost> {
         }
     }
     return listOf(MedicineCost())
+}
+
+fun convertFavoritesEntityToMedicineCost(entityList: List<FavoritesEntity>): List<MedicineCost> {
+    return entityList.map {
+        MedicineCost(
+            Medicine(
+                id = it.medicineId,
+                tradeName = it.tradeName,
+                drugOrRecipet = false,
+                releaseForm = "",
+                vendor = "",
+                dosage = "",
+            ),
+            it.price
+        )
+    }
+}
+
+fun convertMedicineCostToEntity(medicineCost: MedicineCost): FavoritesEntity {
+    return FavoritesEntity(
+        0,
+        medicineCost.medicament.id,
+        medicineCost.medicament.tradeName,
+        medicineCost.price
+    )
 }

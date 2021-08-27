@@ -2,25 +2,31 @@ package com.example.comparepharma.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.comparepharma.app.App
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.Constants
+import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.model.data.convertDtoToModel
 import com.example.comparepharma.model.dto.SearchAprilDTO
-import com.example.comparepharma.model.repository.DetailsRepository
-import com.example.comparepharma.model.repository.DetailsRepositoryImpl
-import com.example.comparepharma.model.repository.RemoteDataSource
+import com.example.comparepharma.model.repository.*
+import com.example.comparepharma.room.FavoritesEntity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailsViewModel(
     val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val detailsRepository: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource())
+    private val detailsRepository: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource()),
+    private val favoritesRepository: LocalRepository = LocalRepositoryImpl(App.getFavoritesDao())
 ) : ViewModel() {
 
     fun getPharmaFromRemoteSource(id: Int) {
         detailsLiveData.value = AppState.Loading
         detailsRepository.getPharmaDetailsFromServer(id, callback)
+    }
+
+    fun savePharmaToDB(medicineCost: MedicineCost) {
+        favoritesRepository.saveFavorites(medicineCost)
     }
 
     private val callback = object : Callback<List<SearchAprilDTO>> {
@@ -40,7 +46,13 @@ class DetailsViewModel(
         }
 
         override fun onFailure(call: Call<List<SearchAprilDTO>>, t: Throwable) {
-            detailsLiveData.postValue(AppState.Error(Throwable(t.message ?: Constants.REQUEST_ERROR)))
+            detailsLiveData.postValue(
+                AppState.Error(
+                    Throwable(
+                        t.message ?: Constants.REQUEST_ERROR
+                    )
+                )
+            )
         }
     }
 

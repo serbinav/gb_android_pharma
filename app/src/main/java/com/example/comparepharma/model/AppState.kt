@@ -7,3 +7,8 @@ sealed class AppState{
     class Error(val error: Throwable):AppState()
     object Loading: AppState()
 }
+
+sealed class ContactState{
+    class Success(val data: List<String>) : ContactState()
+    object Loading : ContactState()
+}

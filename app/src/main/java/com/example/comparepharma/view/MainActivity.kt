@@ -2,8 +2,8 @@ package com.example.comparepharma.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.comparepharma.R
-import com.google.android.material.button.MaterialButton
 import com.example.comparepharma.databinding.MainActivityBinding
 import java.util.*
 
@@ -16,16 +16,35 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val button: MaterialButton = binding.buttonSearch
-
-        button.setOnClickListener {
-            getString(R.string.loading_text).showToast(this@MainActivity)
+        binding.buttonSearch.setOnClickListener {
+            with(binding.search) {
+                if (visibility == View.VISIBLE) {
+                    getString(R.string.loading_text).showToast(this@MainActivity)
+                    visibility = View.GONE
+                } else {
+                    visibility = View.VISIBLE
+                }
+            }
         }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(binding.container.id, MainFragment.newInstance())
                 .commitNow()
+        }
+
+        binding.buttonFavorites.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, FavoritesFragment.newInstance())
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
+
+        binding.buttonPhoneBook.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, PhoneBookFragment.newInstance())
+                .addToBackStack("")
+                .commitAllowingStateLoss()
         }
     }
 }
