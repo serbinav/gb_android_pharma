@@ -1,5 +1,6 @@
 package com.example.comparepharma.room
 
+import android.database.Cursor
 import androidx.room.*
 
 @Dao
@@ -19,4 +20,13 @@ interface FavoritesDao {
 
     @Delete
     fun delete(entity: FavoritesEntity)
+
+    @Query("DELETE FROM FavoritesEntity WHERE id = :id")
+    fun deleteById(id: Long)
+
+    @Query("SELECT medicineId, tradeName, price FROM FavoritesEntity")
+    fun getFavoritesCursor(): Cursor
+
+    @Query("SELECT medicineId, tradeName, price FROM FavoritesEntity WHERE id = :id")
+    fun getFavoritesCursor(id: Long): Cursor
 }
