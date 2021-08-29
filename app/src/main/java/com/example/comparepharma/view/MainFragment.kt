@@ -75,11 +75,11 @@ class MainFragment : Fragment() {
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
-        loadListofPharma()
+        loadListOfPharma()
         showAptekaDataSet()
     }
 
-    private fun loadListofPharma() {
+    private fun loadListOfPharma() {
         requireActivity().apply {
             isDataSetAptekaRu = getPreferences(Context.MODE_PRIVATE)
                 .getBoolean(Constants.IS_APTEKA_RU_KEY, true)

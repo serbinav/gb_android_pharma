@@ -18,6 +18,20 @@
         tools:listitem="@layout/main_fragment_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/white"
+        app:borderWidth="@dimen/no_board"
+        app:elevation="@dimen/elevation"
+        app:layout_constraintBottom_toTopOf="@+id/floating_action_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="@dimen/fab_icon_size"
+        app:srcCompat="@drawable/ic_baseline_location_on_24"
+        app:tint="@null" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +44,8 @@
 
     <include
         android:id="@+id/include_loading_layout"
-        layout="@layout/loading_layout" />
+        layout="@layout/loading_layout"
+        tools:layout_editor_absoluteX="-151dp"
+        tools:layout_editor_absoluteY="-187dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
