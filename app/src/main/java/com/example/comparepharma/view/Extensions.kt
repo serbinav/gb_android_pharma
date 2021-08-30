@@ -35,7 +35,7 @@ fun String.addCurrencySymbol(): String {
         Locale.UK -> template.format(this, "£")
         Locale.US -> template.format(this, "$")
         else -> {
-            String.format(template, " ₽")
+            String.format(this, " ₽")
         }
     }
 }
