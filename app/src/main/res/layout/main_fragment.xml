@@ -44,8 +44,6 @@
 
     <include
         android:id="@+id/include_loading_layout"
-        layout="@layout/loading_layout"
-        tools:layout_editor_absoluteX="-151dp"
-        tools:layout_editor_absoluteY="-187dp" />
+        layout="@layout/loading_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
