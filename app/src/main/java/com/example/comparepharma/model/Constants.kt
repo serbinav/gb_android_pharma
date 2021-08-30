@@ -23,4 +23,5 @@ object Constants {
     const val DB_NAME = "Favorites.db"
     const val REFRESH_PERIOD = 60000L
     const val MINIMAL_DISTANCE = 100F
+    const val MAX_RESULT = 1
 }

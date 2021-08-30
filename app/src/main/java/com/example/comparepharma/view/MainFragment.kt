@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -21,11 +22,14 @@ import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.Constants
+import com.example.comparepharma.model.data.Medicine
+import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.MainViewModel
+import java.io.IOException
 
 class MainFragment : Fragment() {
 
-    //1 06 мин
+    //1 28 мин
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -54,22 +58,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter.setOnItemViewClickListener { cost ->
-            requireActivity().supportFragmentManager.apply {
-                val bundle = Bundle()
-                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
-                beginTransaction()
-                    .add(
-                        R.id.container,
-                        DetailsFragment.newInstance(Bundle().apply {
-                            putParcelable(
-                                DetailsFragment.BUNDLE_EXTRA,
-                                cost
-                            )
-                        })
-                    )
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
-            }
+            openDetailsFragment(cost)
         }
 
         binding.recyclerView.adapter = adapter
@@ -153,12 +142,77 @@ class MainFragment : Fragment() {
 
     private val onLocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            TODO("Not yet implemented")
+            context?.let {
+                getAddress(it, location)
+            }
         }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
     }
 
     private fun getAddress(context: Context, location: Location) {
+        val geoCoder = Geocoder(context)
+        Thread {
+            try {
+                val addresses = geoCoder.getFromLocation(
+                    location.latitude,
+                    location.longitude,
+                    Constants.MAX_RESULT
+                )
+                binding.floatingActionButton.post {
+                    showAddressDialog(addresses.first().getAddressLine(0), location)
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
 
+    private fun showAddressDialog(address: String, location: Location) {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(R.string.dialog_address_title)
+                .setMessage(address)
+                .setPositiveButton(R.string.dialog_address_get_apteka) { _, _ ->
+                    openDetailsFragment(
+                        MedicineCost(
+                            Medicine(
+                                id = "1",
+                                photo = "",
+                                tradeName = address,
+                                drugOrRecipet = false,
+                                releaseForm = " ",
+                                vendor = " ",
+                                dosage = " "
+                            )
+                        )
+                    )
+                }
+                .setNegativeButton(R.string.dialog_button_close) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+    }
+
+    private fun openDetailsFragment(cost: MedicineCost) {
+        requireActivity().supportFragmentManager.apply {
+            beginTransaction()
+                .add(
+                    R.id.container,
+                    DetailsFragment.newInstance(Bundle().apply {
+                        putParcelable(
+                            DetailsFragment.BUNDLE_EXTRA,
+                            cost
+                        )
+                    })
+                )
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
     }
 
     private fun showRationaleDialog() {
