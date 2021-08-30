@@ -165,11 +165,11 @@ class MainFragment : Fragment() {
         activity?.let {
             AlertDialog.Builder(it)
                 .setTitle(R.string.dialog_rationale_title)
-                .setMessage(R.string.dialog_rationale_message)
-                .setPositiveButton(R.string.dialog_rationale_give_access) { _, _ ->
+                .setMessage(R.string.dialog_message)
+                .setPositiveButton(R.string.dialog_give_access) { _, _ ->
                     requestPermission()
                 }
-                .setNegativeButton(R.string.dialog_rationale_decline) { dialog, _ ->
+                .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .create()
@@ -194,7 +194,7 @@ class MainFragment : Fragment() {
             AlertDialog.Builder(it)
                 .setTitle(title)
                 .setMessage(message)
-                .setNegativeButton(R.string.dialog_rationale_decline) { dialog, _ ->
+                .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .create()

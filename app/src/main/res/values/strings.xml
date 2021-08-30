@@ -22,6 +22,10 @@
     <string name="error_title">Ошибка</string>
     <string name="error_create_db">Application is null meanwhile creating database</string>
     <string name="title_favorites">Избранные</string>
+    <string name="dialog_read_contacts_title">Доступ к контактам</string>
+    <string name="dialog_message">Объяснение</string>
+    <string name="dialog_give_access">Предоставить доступ</string>
+    <string name="dialog_decline">Не надо</string>
     <string name="dialog_button_close">Закрыть</string>
     <string name="dialog_title_no_gps">Доступ к геолокации закрыт</string>
     <string name="dialog_message_no_gps">Разрешите доступ к геолокации, если хотите узнать ближайшую аптеку</string>
@@ -29,9 +33,6 @@
     <string name="dialog_message_last_location_unknown">Местонахождение не известно. Включите GPS</string>
     <string name="dialog_message_last_known_location">Показана последняя известная локация. Включите GPS</string>
     <string name="dialog_rationale_title">Доступ к геолокации</string>
-    <string name="dialog_rationale_message">Объяснение</string>
-    <string name="dialog_rationale_give_access">Предоставить доступ</string>
-    <string name="dialog_rationale_decline">Не надо</string>
     <string name="dialog_address_title">Ваш адрес</string>
     <string name="dialog_address_get_apteka">Узнать есть ли аптека в вашем городе</string>
 </resources>
