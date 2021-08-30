@@ -7,4 +7,7 @@
     <dimen name="big_text_size">18sp</dimen>
     <dimen name="img_size">60dp</dimen>
     <dimen name="favorites_text_size">20sp</dimen>
+    <dimen name="fab_location_icon_size">46dp</dimen>
+    <dimen name="no_board">0dp</dimen>
+    <dimen name="elevation">6dp</dimen>
 </resources>

@@ -1,23 +1,34 @@
 package com.example.comparepharma.view
 
+import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.Constants
+import com.example.comparepharma.model.data.Medicine
+import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.MainViewModel
+import java.io.IOException
 
 class MainFragment : Fragment() {
 
-    //56 мин
     //1 28 мин
     companion object {
         fun newInstance() = MainFragment()
@@ -47,22 +58,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter.setOnItemViewClickListener { cost ->
-            requireActivity().supportFragmentManager.apply {
-                val bundle = Bundle()
-                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cost)
-                beginTransaction()
-                    .add(
-                        R.id.container,
-                        DetailsFragment.newInstance(Bundle().apply {
-                            putParcelable(
-                                DetailsFragment.BUNDLE_EXTRA,
-                                cost
-                            )
-                        })
-                    )
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
-            }
+            openDetailsFragment(cost)
         }
 
         binding.recyclerView.adapter = adapter
@@ -71,15 +67,200 @@ class MainFragment : Fragment() {
             saveListOfPharma()
         }
 
+        binding.floatingActionButtonLocation.setOnClickListener {
+            checkPermission()
+        }
+
         super.onViewCreated(view, savedInstanceState)
 
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getDate().observe(viewLifecycleOwner, observer)
-        loadListofPharma()
+        loadListOfPharma()
         showAptekaDataSet()
     }
 
-    private fun loadListofPharma() {
+    private fun checkPermission() {
+        requireActivity().let {
+            when {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    getLocation()
+                }
+
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    showRationaleDialog()
+                }
+                else -> {
+                    requestPermission()
+                }
+            }
+        }
+    }
+
+    private fun getLocation() {
+        activity?.let { context ->
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                val locationManager =
+                    context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    val provider = locationManager.getProvider(LocationManager.GPS_PROVIDER)
+                    provider?.let {
+                        locationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            Constants.REFRESH_PERIOD,
+                            Constants.MINIMAL_DISTANCE,
+                            onLocationListener
+                        )
+                    }
+                } else {
+                    val location =
+                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    if (location == null) {
+                        showDialog(
+                            getString(R.string.dialog_title_gps_turned_off),
+                            getString(R.string.dialog_message_last_location_unknown)
+                        )
+                    } else {
+                        getAddress(context, location)
+                        showDialog(
+                            getString(R.string.dialog_title_gps_turned_off),
+                            getString(R.string.dialog_message_last_known_location)
+                        )
+                    }
+                }
+            } else {
+                showRationaleDialog()
+            }
+        }
+    }
+
+    private val onLocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            context?.let {
+                getAddress(it, location)
+            }
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
+
+    private fun getAddress(context: Context, location: Location) {
+        val geoCoder = Geocoder(context)
+        Thread {
+            try {
+                val addresses = geoCoder.getFromLocation(
+                    location.latitude,
+                    location.longitude,
+                    Constants.MAX_RESULT
+                )
+                binding.floatingActionButton.post {
+                    showAddressDialog(addresses.first().getAddressLine(0), location)
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
+
+    private fun showAddressDialog(address: String, location: Location) {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(R.string.dialog_address_title)
+                .setMessage(address)
+                .setPositiveButton(R.string.dialog_address_get_apteka) { _, _ ->
+                    openDetailsFragment(
+                        MedicineCost(
+                            Medicine(
+                                id = "1",
+                                photo = "",
+                                tradeName = address,
+                                drugOrRecipet = false,
+                                releaseForm = " ",
+                                vendor = " ",
+                                dosage = " "
+                            )
+                        )
+                    )
+                }
+                .setNegativeButton(R.string.dialog_button_close) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+    }
+
+    private fun openDetailsFragment(cost: MedicineCost) {
+        requireActivity().supportFragmentManager.apply {
+            beginTransaction()
+                .add(
+                    R.id.container,
+                    DetailsFragment.newInstance(Bundle().apply {
+                        putParcelable(
+                            DetailsFragment.BUNDLE_EXTRA,
+                            cost
+                        )
+                    })
+                )
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
+    }
+
+    private fun showRationaleDialog() {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(R.string.dialog_rationale_title)
+                .setMessage(R.string.dialog_message)
+                .setPositiveButton(R.string.dialog_give_access) { _, _ ->
+                    requestPermission()
+                }
+                .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                getLocation()
+            } else {
+                showDialog(
+                    getString(R.string.dialog_title_no_gps),
+                    getString(R.string.dialog_message_no_gps)
+                )
+            }
+        }
+
+    private fun showDialog(title: String, message: String) {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(title)
+                .setMessage(message)
+                .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+    }
+
+    private fun requestPermission() {
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
+    private fun loadListOfPharma() {
         requireActivity().apply {
             isDataSetAptekaRu = getPreferences(Context.MODE_PRIVATE)
                 .getBoolean(Constants.IS_APTEKA_RU_KEY, true)

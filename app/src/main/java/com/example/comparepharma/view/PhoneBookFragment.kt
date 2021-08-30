@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.comparepharma.R
 import com.example.comparepharma.databinding.PhoneBookFragmentBinding
 import com.example.comparepharma.model.ContactState
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
@@ -70,12 +71,12 @@ class PhoneBookFragment : Fragment() {
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS) -> {
                     AlertDialog.Builder(it)
-                        .setTitle("Доступ к контактам")
-                        .setMessage("Объяснение")
-                        .setPositiveButton("Предоставить доступ") { _, _ ->
+                        .setTitle(R.string.dialog_read_contacts_title)
+                        .setMessage(R.string.dialog_message)
+                        .setPositiveButton(R.string.dialog_give_access) { _, _ ->
                             requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
                         }
-                        .setNegativeButton("Не надо") { dialog, _ ->
+                        .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
                             dialog.dismiss()
                         }
                         .create()
@@ -93,9 +94,9 @@ class PhoneBookFragment : Fragment() {
             } else {
                 context.let {
                     AlertDialog.Builder(it)
-                        .setTitle("Доступ к контактам")
-                        .setMessage("Объяснение")
-                        .setNegativeButton("Закрыть") { dialog, _ -> dialog.dismiss() }
+                        .setTitle(R.string.dialog_read_contacts_title)
+                        .setMessage(R.string.dialog_message)
+                        .setNegativeButton(R.string.dialog_button_close) { dialog, _ -> dialog.dismiss() }
                         .create()
                         .show()
                 }
