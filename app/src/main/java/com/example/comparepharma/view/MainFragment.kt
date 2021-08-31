@@ -22,14 +22,13 @@ import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.Constants
-import com.example.comparepharma.model.data.Medicine
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.MainViewModel
 import java.io.IOException
 
 class MainFragment : Fragment() {
 
-    //1 28 мин
+    //1 57 мин
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -176,19 +175,7 @@ class MainFragment : Fragment() {
                 .setTitle(R.string.dialog_address_title)
                 .setMessage(address)
                 .setPositiveButton(R.string.dialog_address_get_apteka) { _, _ ->
-                    openDetailsFragment(
-                        MedicineCost(
-                            Medicine(
-                                id = "1",
-                                photo = "",
-                                tradeName = address,
-                                drugOrRecipet = false,
-                                releaseForm = " ",
-                                vendor = " ",
-                                dosage = " "
-                            )
-                        )
-                    )
+                    openMapFragment()
                 }
                 .setNegativeButton(R.string.dialog_button_close) { dialog, _ ->
                     dialog.dismiss()
@@ -209,6 +196,18 @@ class MainFragment : Fragment() {
                             cost
                         )
                     })
+                )
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
+    }
+
+    private fun openMapFragment() {
+        requireActivity().supportFragmentManager.apply {
+            beginTransaction()
+                .add(
+                    R.id.container,
+                    MapsFragment.newInstance()
                 )
                 .addToBackStack("")
                 .commitAllowingStateLoss()
