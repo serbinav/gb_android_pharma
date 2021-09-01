@@ -33,6 +33,14 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+
+        properties.load(project.rootProject.file("secrets.properties").newDataInputStream())
+        def apiKey = properties.getProperty("googleMapsKey", "")
+        it.buildConfigField "String", "GOOGLE_MAPS_KEY", apiKey
+    }
 }
 
 dependencies {

@@ -21,7 +21,7 @@ import androidx.lifecycle.Observer
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.Constants
+import com.example.comparepharma.service.Constants
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.viewmodel.MainViewModel
 import java.io.IOException

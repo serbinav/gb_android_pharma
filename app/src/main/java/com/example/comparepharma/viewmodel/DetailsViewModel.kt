@@ -4,12 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.app.App
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.Constants
+import com.example.comparepharma.service.Constants
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.model.data.convertDtoToModel
 import com.example.comparepharma.model.dto.SearchAprilDTO
 import com.example.comparepharma.model.repository.*
-import com.example.comparepharma.room.FavoritesEntity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

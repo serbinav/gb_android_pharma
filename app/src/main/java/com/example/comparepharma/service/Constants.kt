@@ -1,4 +1,4 @@
-package com.example.comparepharma.model
+package com.example.comparepharma.service
 
 object Constants {
     const val APTEKA_APRIL_BASE_URL = "https://web-api.apteka-april.ru/"
