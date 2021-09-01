@@ -28,7 +28,6 @@ import java.io.IOException
 
 class MainFragment : Fragment() {
 
-    //1 57 мин
     companion object {
         fun newInstance() = MainFragment()
     }

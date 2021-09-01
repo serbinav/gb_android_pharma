@@ -24,4 +24,6 @@ object Constants {
     const val REFRESH_PERIOD = 60000L
     const val MINIMAL_DISTANCE = 100F
     const val MAX_RESULT = 1
+    const val WIDTH_MAP_LINE = 5f
+    const val ZOOM_MAP = 10f
 }
