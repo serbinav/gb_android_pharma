@@ -26,4 +26,6 @@ object Constants {
     const val MAX_RESULT = 1
     const val WIDTH_MAP_LINE = 5f
     const val ZOOM_MAP = 10f
+    const val CHANNEL_ID = "CHANNEL_MY"
+    const val FIREBASE_TOKEN = "FIREBASE_MSG"
 }
