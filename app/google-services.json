@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "595611519966",
+    "project_id": "comparepharmageek",
+    "storage_bucket": "comparepharmageek.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595611519966:android:f263528f369705e269eb4f",
+        "android_client_info": {
+          "package_name": "com.example.comparepharma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595611519966-n804cavegr3gpd5o2d28jtgids2vmbj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRZuougImvbePEWPyujazRZPUG8LVAqzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595611519966-n804cavegr3gpd5o2d28jtgids2vmbj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
