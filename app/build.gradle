@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -33,9 +34,22 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+
+        properties.load(project.rootProject.file("secrets.properties").newDataInputStream())
+        def apiKey = properties.getProperty("googleMapsKey", "")
+        it.buildConfigField "String", "GOOGLE_MAPS_KEY", apiKey
+    }
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-core:19.0.1'
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
     //room
     implementation "androidx.room:room-runtime:2.3.0"
     kapt "androidx.room:room-compiler:2.3.0"

@@ -1,6 +1,6 @@
 package com.example.comparepharma.model.repository
 
-import com.example.comparepharma.model.Constants
+import com.example.comparepharma.service.Constants
 import com.example.comparepharma.model.dto.SearchAprilDTO
 import retrofit2.Call
 import retrofit2.http.GET

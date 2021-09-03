@@ -35,4 +35,5 @@
     <string name="dialog_rationale_title">Доступ к геолокации</string>
     <string name="dialog_address_title">Ваш адрес</string>
     <string name="dialog_address_get_apteka">Узнать есть ли аптека в вашем городе</string>
+    <string name="marker_ulyanovsk">Marker in Ulyanovsk</string>
 </resources>

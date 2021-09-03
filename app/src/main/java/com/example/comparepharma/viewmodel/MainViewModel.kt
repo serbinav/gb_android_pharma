@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.model.Constants
+import com.example.comparepharma.service.Constants
 import com.example.comparepharma.model.repository.RepositorySingleImpl
 import com.example.comparepharma.model.repository.Repository
 

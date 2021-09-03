@@ -31,7 +31,6 @@
         android:background="@color/img_background"
         android:scaleType="fitXY"
         android:src="@drawable/ic_baseline_search_24"
-        android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintLeft_toRightOf="@+id/search"
         app:layout_constraintRight_toLeftOf="@+id/button_favorites"
