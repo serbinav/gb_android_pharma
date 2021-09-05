@@ -3,7 +3,7 @@ package com.example.comparepharma.app
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
 import com.example.comparepharma.room.FavoritesDao
 import com.example.comparepharma.room.FavoritesDataBase
 import java.lang.IllegalStateException

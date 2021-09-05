@@ -1,4 +1,4 @@
-package com.example.comparepharma.view
+package com.example.comparepharma.utils
 
 import android.content.Context
 import android.view.View

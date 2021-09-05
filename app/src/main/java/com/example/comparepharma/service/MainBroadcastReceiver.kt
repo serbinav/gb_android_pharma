@@ -6,7 +6,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.widget.Toast
 import com.example.comparepharma.R
-import com.example.comparepharma.view.showToast
+import com.example.comparepharma.utils.showToast
 
 class MainBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {

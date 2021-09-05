@@ -11,10 +11,14 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.comparepharma.BuildConfig
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.PhoneBookFragmentBinding
 import com.example.comparepharma.model.ContactState
+import com.example.comparepharma.utils.hide
+import com.example.comparepharma.utils.show
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
+import java.util.*
 
 class PhoneBookFragment : Fragment() {
 
@@ -43,6 +47,8 @@ class PhoneBookFragment : Fragment() {
         viewModel.contacts.observe(viewLifecycleOwner) {
             renderData(it)
         }
+        binding.buildType.text =
+            String.format(getString(R.string.build_type_output), BuildConfig.MY_BUILD_TYPE)
         checkPermission()
     }
 

@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MapsFragmentBinding
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

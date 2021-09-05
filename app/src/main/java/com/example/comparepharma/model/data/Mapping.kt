@@ -1,6 +1,6 @@
 package com.example.comparepharma.model.data
 
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
 import com.example.comparepharma.model.dto.SearchAprilDTO
 import com.example.comparepharma.room.FavoritesEntity
 

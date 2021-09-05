@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.comparepharma.R
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

@@ -11,7 +11,8 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainActivityBinding
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
+import com.example.comparepharma.utils.showToast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
