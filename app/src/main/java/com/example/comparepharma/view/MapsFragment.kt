@@ -75,7 +75,7 @@ class MapsFragment : Fragment() {
                     )
                     with(binding) {
                         textAddress.post {
-                            textAddress.text = addresses[0].getAddressLine(0)
+                            textAddress.text = addresses.firstOrNull()?.getAddressLine(0)
                         }
                     }
                 } catch (e: IOException) {
@@ -119,7 +119,7 @@ class MapsFragment : Fragment() {
             Thread {
                 try {
                     val addresses = geoCoder.getFromLocationName(searchText, Constants.MAX_RESULT)
-                    if (addresses.size > 0) {
+                    if (addresses.isNotEmpty()) {
                         goToAddress(addresses, it, searchText)
                     }
                 } catch (ex: IOException) {

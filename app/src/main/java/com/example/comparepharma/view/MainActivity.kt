@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnCompleteListener
             }
             val token = task.result
-            if (token != null) {
+            token?.let {
                 Log.d(Constants.FIREBASE_TOKEN, token)
             }
         })
