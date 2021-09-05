@@ -48,6 +48,17 @@ android {
     buildFeatures {
         viewBinding true
     }
+    flavorDimensions 'version'
+    productFlavors {
+        stable {
+            dimension 'version'
+            versionNameSuffix '.stable'
+        }
+        alpha {
+            dimension 'version'
+            versionNameSuffix '.alpha'
+        }
+    }
 
     buildTypes.each {
         Properties properties = new Properties()

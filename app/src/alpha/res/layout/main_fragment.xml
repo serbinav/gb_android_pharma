@@ -25,7 +25,6 @@
         android:backgroundTint="@color/white"
         app:borderWidth="@dimen/no_board"
         app:elevation="@dimen/elevation"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/floating_action_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="@dimen/fab_icon_size"
