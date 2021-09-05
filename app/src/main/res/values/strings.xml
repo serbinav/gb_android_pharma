@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">compare pharma</string>
+    <string name="app_name">Сравнение цен в аптеках</string>
     <string name="search_hint">Введите название лекарства</string>
     <string name="search">Поиск</string>
     <string name="name_text">Пусто</string>
