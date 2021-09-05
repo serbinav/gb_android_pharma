@@ -27,7 +27,7 @@ class ContactRepositoryImpl(contextProvider: IContextProvider = ContextProvider)
                 answer.add(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)))
                 cursor.moveToNext()
             }
-            cursorWithContacts?.close()
+            cursorWithContacts.close()
         }
         return answer
     }

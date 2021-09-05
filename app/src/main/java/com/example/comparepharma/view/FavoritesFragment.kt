@@ -30,7 +30,7 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FavoritesFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }

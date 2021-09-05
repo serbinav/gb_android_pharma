@@ -163,7 +163,7 @@ class MainFragment : Fragment() {
                     Constants.MAX_RESULT
                 )
                 binding.floatingActionButton.post {
-                    showAddressDialog(addresses.first().getAddressLine(0), location)
+                    showAddressDialog(addresses.first().getAddressLine(0))
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -171,7 +171,7 @@ class MainFragment : Fragment() {
         }.start()
     }
 
-    private fun showAddressDialog(address: String, location: Location) {
+    private fun showAddressDialog(address: String) {
         activity?.let {
             AlertDialog.Builder(it)
                 .setTitle(R.string.dialog_address_title)

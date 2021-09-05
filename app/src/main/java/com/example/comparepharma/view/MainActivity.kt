@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
 
+    //1 ч 27 мин
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
@@ -28,11 +30,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSearch.setOnClickListener {
             with(binding.search) {
-                if (visibility == View.VISIBLE) {
+                visibility = if (visibility == View.VISIBLE) {
                     getString(R.string.loading_text).showToast(this@MainActivity)
-                    visibility = View.GONE
+                    View.GONE
                 } else {
-                    visibility = View.VISIBLE
+                    View.VISIBLE
                 }
             }
         }

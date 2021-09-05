@@ -18,7 +18,6 @@ import com.example.comparepharma.model.ContactState
 import com.example.comparepharma.utils.hide
 import com.example.comparepharma.utils.show
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
-import java.util.*
 
 class PhoneBookFragment : Fragment() {
 
@@ -35,7 +34,7 @@ class PhoneBookFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = PhoneBookFragmentBinding.inflate(inflater, container, false)
         binding.contactList.adapter = adapter
         return binding.root

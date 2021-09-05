@@ -87,10 +87,12 @@ class MapsFragment : Fragment() {
 
     private fun addMarkerToArray(location: LatLng) {
         val marker = setMarker(location, markers.size.toString(), R.drawable.location_marker)
-        markers.add(marker)
+        marker?.let {
+            markers.add(marker)
+        }
     }
 
-    private fun setMarker(location: LatLng, searchText: String, resourceId: Int): Marker {
+    private fun setMarker(location: LatLng, searchText: String, resourceId: Int): Marker? {
         return map.addMarker(
             MarkerOptions().position(location).title(searchText).icon(
                 BitmapDescriptorFactory.fromResource(resourceId)
@@ -99,7 +101,7 @@ class MapsFragment : Fragment() {
     }
 
     private fun drawLine() {
-        val last:Int = markers.size - 1
+        val last: Int = markers.size - 1
         if (last >= 1) {
             val prev: LatLng = markers[last - 1].position
             val cur: LatLng = markers[last].position
