@@ -38,4 +38,6 @@
     <string name="marker_ulyanovsk">Marker in Ulyanovsk</string>
     <string name="build_type_output">BUILD TYPE: %1s</string>
     <string name="map_search_hint">Введите город для поиска</string>
+    <string name="default_channel_name">Channel Name</string>
+    <string name="default_channel_description">Channel Description</string>
 </resources>

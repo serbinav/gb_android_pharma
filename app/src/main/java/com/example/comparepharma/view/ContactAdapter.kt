@@ -31,5 +31,4 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() 
     }
 
     override fun getItemCount(): Int = contacts.size
-
 }

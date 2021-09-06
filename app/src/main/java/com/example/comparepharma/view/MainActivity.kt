@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
 
-    //1 ч 27 мин
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonFavorites.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, FavoritesFragment.newInstance())
+                .replace(binding.container.id, FavoritesFragment())
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
@@ -83,8 +81,8 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
-        val channelName = "Channel Name"
-        val descriptionText = "Channel Description"
+        val channelName =  getString(R.string.default_channel_name)
+        val descriptionText = getString(R.string.default_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(Constants.CHANNEL_ID, channelName, importance).apply {
             description = descriptionText

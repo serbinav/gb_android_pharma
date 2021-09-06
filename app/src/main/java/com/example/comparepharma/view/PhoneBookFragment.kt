@@ -1,7 +1,6 @@
 package com.example.comparepharma.view
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import com.example.comparepharma.BuildConfig
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.PhoneBookFragmentBinding
 import com.example.comparepharma.model.ContactState
+import com.example.comparepharma.utils.DialogAlert
 import com.example.comparepharma.utils.hide
 import com.example.comparepharma.utils.show
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
@@ -75,17 +75,12 @@ class PhoneBookFragment : Fragment() {
                     getContacts()
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS) -> {
-                    AlertDialog.Builder(it)
-                        .setTitle(R.string.dialog_read_contacts_title)
-                        .setMessage(R.string.dialog_message)
-                        .setPositiveButton(R.string.dialog_give_access) { _, _ ->
+                    DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
+                        .showDialogAlertWithPositiveButton(
+                            R.string.dialog_give_access,
+                            R.string.dialog_decline,
                             requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
-                        }
-                        .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .create()
-                        .show()
+                        )
                 }
                 else -> requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
@@ -97,13 +92,9 @@ class PhoneBookFragment : Fragment() {
             if (isGranted) {
                 getContacts()
             } else {
-                context.let {
-                    AlertDialog.Builder(it)
-                        .setTitle(R.string.dialog_read_contacts_title)
-                        .setMessage(R.string.dialog_message)
-                        .setNegativeButton(R.string.dialog_button_close) { dialog, _ -> dialog.dismiss() }
-                        .create()
-                        .show()
+                context?.let {
+                    DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
+                        .showBaseDialogAlert(R.string.dialog_button_close)
                 }
             }
         }
