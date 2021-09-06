@@ -78,9 +78,8 @@ class PhoneBookFragment : Fragment() {
                     DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
                         .showDialogAlertWithPositiveButton(
                             R.string.dialog_give_access,
-                            R.string.dialog_decline,
-                            requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
-                        )
+                            R.string.dialog_decline
+                        ) { requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS) }
                 }
                 else -> requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
             }

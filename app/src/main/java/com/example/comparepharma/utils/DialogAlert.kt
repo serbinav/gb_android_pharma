@@ -38,11 +38,11 @@ class DialogAlert(
     fun showDialogAlertWithPositiveButton(
         rStringPositiveButtonId: Int,
         rStringNegativeButtonId: Int,
-        doSomething: Unit
-    ) {
+        doSomething: () -> Unit)
+    {
         build()
             .setPositiveButton(context.getString(rStringPositiveButtonId)) { _, _ ->
-                doSomething
+                doSomething()
             }
             .setNegativeButton(context.getString(rStringNegativeButtonId)) { dialog, _ ->
                 dialog.dismiss()

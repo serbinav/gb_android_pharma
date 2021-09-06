@@ -169,9 +169,8 @@ class MainFragment : Fragment() {
             DialogAlert(it, getString(R.string.dialog_address_title), address)
                 .showDialogAlertWithPositiveButton(
                     R.string.dialog_address_get_apteka,
-                    R.string.dialog_button_close,
-                    openMapFragment()
-                )
+                    R.string.dialog_button_close
+                ) { openMapFragment() }
         }
     }
 
@@ -209,9 +208,8 @@ class MainFragment : Fragment() {
             DialogAlert(it, R.string.dialog_rationale_title, R.string.dialog_message)
                 .showDialogAlertWithPositiveButton(
                     R.string.dialog_give_access,
-                    R.string.dialog_decline,
-                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-                )
+                    R.string.dialog_decline
+                ) { requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION) }
         }
     }
 
