@@ -29,7 +29,6 @@ class DetailsViewModel(
     }
 
     private val callback = object : Callback<List<SearchAprilDTO>> {
-
         override fun onResponse(
             call: Call<List<SearchAprilDTO>>,
             response: Response<List<SearchAprilDTO>>

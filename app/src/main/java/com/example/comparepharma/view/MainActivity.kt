@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, MainFragment.newInstance())
+                .replace(binding.container.id, MainFragment())
                 .commitNow()
         }
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonPhoneBook.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, PhoneBookFragment.newInstance())
+                .replace(binding.container.id, PhoneBookFragment())
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             if (!task.isSuccessful) {
                 Log.w(
                     Constants.FIREBASE_TOKEN,
-                    "Fetching FCM registration token failed",
+                    getString(R.string.fcm_registration_failed),
                     task.exception
                 )
                 return@OnCompleteListener
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
-        val channelName =  getString(R.string.default_channel_name)
+        val channelName = getString(R.string.default_channel_name)
         val descriptionText = getString(R.string.default_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(Constants.CHANNEL_ID, channelName, importance).apply {

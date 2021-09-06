@@ -5,7 +5,7 @@ import com.example.comparepharma.model.dto.SearchAprilDTO
 import com.example.comparepharma.room.FavoritesEntity
 
 fun convertDtoToModel(searchAprilDTO: SearchAprilDTO): List<MedicineCost> {
-    searchAprilDTO.apply {
+    with(searchAprilDTO) {
         val releaseFormDTO =
             description.first { it?.typeID == Constants.DESCRIPTION_NUMBER_RELEASE_FORM }?.description
         val vendorDTO =

@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MapsFragmentBinding
 import com.example.comparepharma.utils.Constants
 
@@ -20,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.io.IOException
 
+import com.example.comparepharma.R
+
 class MapsFragment : Fragment() {
 
     private var _binding: MapsFragmentBinding? = null
@@ -29,7 +30,11 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        val initialPlace = LatLng(54.3282, 48.3866)
+        val initialPlace =
+            LatLng(
+                getString(R.string.latitude_ulyanovsk).toDouble(),
+                getString(R.string.longitude_ulyanovsk).toDouble()
+            )
         googleMap.addMarker(
             MarkerOptions().position(initialPlace).title(getString(R.string.marker_ulyanovsk))
         )
@@ -148,12 +153,6 @@ class MapsFragment : Fragment() {
                     Constants.ZOOM_MAP
                 )
             )
-        }
-    }
-
-    companion object {
-        fun newInstance(): MapsFragment {
-            return MapsFragment()
         }
     }
 }

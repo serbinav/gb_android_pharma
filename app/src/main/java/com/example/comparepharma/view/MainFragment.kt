@@ -27,10 +27,6 @@ import java.io.IOException
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
@@ -91,7 +87,7 @@ class MainFragment : Fragment() {
                     showRationaleDialog()
                 }
                 else -> {
-                    requestPermission()
+                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 }
             }
         }
@@ -180,7 +176,7 @@ class MainFragment : Fragment() {
     }
 
     private fun openDetailsFragment(cost: MedicineCost) {
-        requireActivity().supportFragmentManager.apply {
+        with(requireActivity().supportFragmentManager) {
             beginTransaction()
                 .add(
                     R.id.container,
@@ -197,11 +193,11 @@ class MainFragment : Fragment() {
     }
 
     private fun openMapFragment() {
-        requireActivity().supportFragmentManager.apply {
+        with(requireActivity().supportFragmentManager) {
             beginTransaction()
                 .add(
                     R.id.container,
-                    MapsFragment.newInstance()
+                    MapsFragment()
                 )
                 .addToBackStack("")
                 .commitAllowingStateLoss()
@@ -214,7 +210,7 @@ class MainFragment : Fragment() {
                 .showDialogAlertWithPositiveButton(
                     R.string.dialog_give_access,
                     R.string.dialog_decline,
-                    requestPermission()
+                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 )
         }
     }
@@ -238,19 +234,15 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun requestPermission() {
-        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
     private fun loadListOfPharma() {
-        requireActivity().apply {
+        with(requireActivity()) {
             isDataSetAptekaRu = getPreferences(Context.MODE_PRIVATE)
                 .getBoolean(Constants.IS_APTEKA_RU_KEY, true)
         }
     }
 
     private fun saveListOfPharma() {
-        requireActivity().apply {
+        with(requireActivity()) {
             getPreferences(Context.MODE_PRIVATE).edit {
                 putBoolean(Constants.IS_APTEKA_RU_KEY, isDataSetAptekaRu)
                 apply()

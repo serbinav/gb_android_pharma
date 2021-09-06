@@ -40,4 +40,7 @@
     <string name="map_search_hint">Введите город для поиска</string>
     <string name="default_channel_name">Channel Name</string>
     <string name="default_channel_description">Channel Description</string>
+    <string name="fcm_registration_failed">Fetching FCM registration token failed</string>
+    <string name="latitude_ulyanovsk">54.3282</string>
+    <string name="longitude_ulyanovsk">48.3866</string>
 </resources>

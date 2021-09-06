@@ -17,5 +17,4 @@ class PhoneBookViewModel(
         val answer = repository.getListOfContact()
         contacts.value = ContactState.Success(answer)
     }
-
 }

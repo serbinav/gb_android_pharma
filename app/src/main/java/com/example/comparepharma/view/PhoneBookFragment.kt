@@ -72,7 +72,7 @@ class PhoneBookFragment : Fragment() {
                     it,
                     Manifest.permission.READ_CONTACTS
                 ) == PackageManager.PERMISSION_GRANTED -> {
-                    getContacts()
+                    viewModel.getContacts()
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS) -> {
                     DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
@@ -90,7 +90,7 @@ class PhoneBookFragment : Fragment() {
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                getContacts()
+                viewModel.getContacts()
             } else {
                 context?.let {
                     DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
@@ -99,18 +99,8 @@ class PhoneBookFragment : Fragment() {
             }
         }
 
-    private fun getContacts() {
-        viewModel.getContacts()
-    }
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            PhoneBookFragment()
     }
 }
