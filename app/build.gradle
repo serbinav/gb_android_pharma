@@ -24,6 +24,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "MY_BUILD_TYPE", "\"RELEASE\"")
+            resValue("dimen", "my_size_text", "18sp")
+        }
+        rc {
+            initWith debug
+            versionNameSuffix "-rc"
+            debuggable true
+            buildConfigField("String", "MY_BUILD_TYPE", "\"RC\"")
+            resValue("dimen", "my_size_text", "50sp")
+        }
+        debug {
+            versionNameSuffix '-debug'
+            buildConfigField("String", "MY_BUILD_TYPE", "\"DEBUG\"")
+            resValue("dimen", "my_size_text", "30sp")
         }
     }
     compileOptions {
@@ -33,6 +47,17 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        stable {
+            dimension 'version'
+            versionNameSuffix '.stable'
+        }
+        alpha {
+            dimension 'version'
+            versionNameSuffix '.alpha'
+        }
     }
 
     buildTypes.each {

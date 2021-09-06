@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@color/white"
-        android:visibility="gone"
         app:borderWidth="@dimen/no_board"
         app:elevation="@dimen/elevation"
         app:layout_constraintBottom_toTopOf="@+id/floating_action_button"

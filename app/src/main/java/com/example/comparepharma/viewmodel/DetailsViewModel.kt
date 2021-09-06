@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.comparepharma.app.App
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
 import com.example.comparepharma.model.data.MedicineCost
 import com.example.comparepharma.model.data.convertDtoToModel
 import com.example.comparepharma.model.dto.SearchAprilDTO
@@ -29,7 +29,6 @@ class DetailsViewModel(
     }
 
     private val callback = object : Callback<List<SearchAprilDTO>> {
-
         override fun onResponse(
             call: Call<List<SearchAprilDTO>>,
             response: Response<List<SearchAprilDTO>>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">compare pharma</string>
+    <string name="app_name">Сравнение цен в аптеках</string>
     <string name="search_hint">Введите название лекарства</string>
     <string name="search">Поиск</string>
     <string name="name_text">Пусто</string>
@@ -36,4 +36,11 @@
     <string name="dialog_address_title">Ваш адрес</string>
     <string name="dialog_address_get_apteka">Узнать есть ли аптека в вашем городе</string>
     <string name="marker_ulyanovsk">Marker in Ulyanovsk</string>
+    <string name="build_type_output">BUILD TYPE: %1s</string>
+    <string name="map_search_hint">Введите город для поиска</string>
+    <string name="default_channel_name">Channel Name</string>
+    <string name="default_channel_description">Channel Description</string>
+    <string name="fcm_registration_failed">Fetching FCM registration token failed</string>
+    <string name="latitude_ulyanovsk">54.3282</string>
+    <string name="longitude_ulyanovsk">48.3866</string>
 </resources>

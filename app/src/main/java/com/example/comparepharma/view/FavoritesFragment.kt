@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.FavoritesFragmentBinding
 import com.example.comparepharma.model.AppState
+import com.example.comparepharma.utils.hide
+import com.example.comparepharma.utils.show
+import com.example.comparepharma.utils.showSnackBar
 import com.example.comparepharma.viewmodel.FavoritesViewModel
 
 class FavoritesFragment : Fragment() {
@@ -27,7 +30,7 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FavoritesFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -66,11 +69,5 @@ class FavoritesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            FavoritesFragment()
     }
 }

@@ -24,14 +24,15 @@ class PharmaAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PharmaViewHolder {
-        val itemBinding = MainFragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding =
+            MainFragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PharmaViewHolder(itemBinding)
     }
 
     inner class PharmaViewHolder(private val binding: MainFragmentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cost: MedicineCost) {
-            binding.apply {
+            with(binding) {
                 if (cost.medicament.photo == "") {
                     Picasso
                         .get()

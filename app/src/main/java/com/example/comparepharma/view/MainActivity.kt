@@ -11,7 +11,8 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainActivityBinding
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
+import com.example.comparepharma.utils.showToast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
@@ -27,31 +28,31 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSearch.setOnClickListener {
             with(binding.search) {
-                if (visibility == View.VISIBLE) {
+                visibility = if (visibility == View.VISIBLE) {
                     getString(R.string.loading_text).showToast(this@MainActivity)
-                    visibility = View.GONE
+                    View.GONE
                 } else {
-                    visibility = View.VISIBLE
+                    View.VISIBLE
                 }
             }
         }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, MainFragment.newInstance())
+                .replace(binding.container.id, MainFragment())
                 .commitNow()
         }
 
         binding.buttonFavorites.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, FavoritesFragment.newInstance())
+                .replace(binding.container.id, FavoritesFragment())
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
 
         binding.buttonPhoneBook.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, PhoneBookFragment.newInstance())
+                .replace(binding.container.id, PhoneBookFragment())
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
@@ -66,13 +67,13 @@ class MainActivity : AppCompatActivity() {
             if (!task.isSuccessful) {
                 Log.w(
                     Constants.FIREBASE_TOKEN,
-                    "Fetching FCM registration token failed",
+                    getString(R.string.fcm_registration_failed),
                     task.exception
                 )
                 return@OnCompleteListener
             }
             val token = task.result
-            if (token != null) {
+            token?.let {
                 Log.d(Constants.FIREBASE_TOKEN, token)
             }
         })
@@ -80,8 +81,8 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {
-        val channelName = "Channel Name"
-        val descriptionText = "Channel Description"
+        val channelName = getString(R.string.default_channel_name)
+        val descriptionText = getString(R.string.default_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(Constants.CHANNEL_ID, channelName, importance).apply {
             description = descriptionText

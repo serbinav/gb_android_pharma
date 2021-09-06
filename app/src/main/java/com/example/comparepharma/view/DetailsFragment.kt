@@ -13,6 +13,9 @@ import com.example.comparepharma.databinding.DetailsFragmentBinding
 import com.example.comparepharma.model.AppState
 import com.example.comparepharma.model.data.Medicine
 import com.example.comparepharma.model.data.MedicineCost
+import com.example.comparepharma.utils.hide
+import com.example.comparepharma.utils.show
+import com.example.comparepharma.utils.showSnackBar
 import com.example.comparepharma.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
 

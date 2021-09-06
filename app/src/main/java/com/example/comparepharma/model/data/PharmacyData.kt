@@ -1,6 +1,6 @@
 package com.example.comparepharma.model.data
 
-import com.example.comparepharma.view.addCurrencySymbol
+import com.example.comparepharma.utils.addCurrencySymbol
 
 fun getAptekaRuPharma() = listOf(
     MedicineCost(

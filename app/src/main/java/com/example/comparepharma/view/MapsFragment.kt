@@ -9,9 +9,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MapsFragmentBinding
-import com.example.comparepharma.service.Constants
+import com.example.comparepharma.utils.Constants
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,6 +18,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.io.IOException
+
+import com.example.comparepharma.R
 
 class MapsFragment : Fragment() {
 
@@ -29,7 +30,11 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        val initialPlace = LatLng(54.3282, 48.3866)
+        val initialPlace =
+            LatLng(
+                getString(R.string.latitude_ulyanovsk).toDouble(),
+                getString(R.string.longitude_ulyanovsk).toDouble()
+            )
         googleMap.addMarker(
             MarkerOptions().position(initialPlace).title(getString(R.string.marker_ulyanovsk))
         )
@@ -75,7 +80,7 @@ class MapsFragment : Fragment() {
                     )
                     with(binding) {
                         textAddress.post {
-                            textAddress.text = addresses[0].getAddressLine(0)
+                            textAddress.text = addresses.firstOrNull()?.getAddressLine(0)
                         }
                     }
                 } catch (e: IOException) {
@@ -87,10 +92,12 @@ class MapsFragment : Fragment() {
 
     private fun addMarkerToArray(location: LatLng) {
         val marker = setMarker(location, markers.size.toString(), R.drawable.location_marker)
-        markers.add(marker)
+        marker?.let {
+            markers.add(marker)
+        }
     }
 
-    private fun setMarker(location: LatLng, searchText: String, resourceId: Int): Marker {
+    private fun setMarker(location: LatLng, searchText: String, resourceId: Int): Marker? {
         return map.addMarker(
             MarkerOptions().position(location).title(searchText).icon(
                 BitmapDescriptorFactory.fromResource(resourceId)
@@ -99,7 +106,7 @@ class MapsFragment : Fragment() {
     }
 
     private fun drawLine() {
-        val last:Int = markers.size - 1
+        val last: Int = markers.size - 1
         if (last >= 1) {
             val prev: LatLng = markers[last - 1].position
             val cur: LatLng = markers[last].position
@@ -119,7 +126,7 @@ class MapsFragment : Fragment() {
             Thread {
                 try {
                     val addresses = geoCoder.getFromLocationName(searchText, Constants.MAX_RESULT)
-                    if (addresses.size > 0) {
+                    if (addresses.isNotEmpty()) {
                         goToAddress(addresses, it, searchText)
                     }
                 } catch (ex: IOException) {
@@ -146,12 +153,6 @@ class MapsFragment : Fragment() {
                     Constants.ZOOM_MAP
                 )
             )
-        }
-    }
-
-    companion object {
-        fun newInstance(): MapsFragment {
-            return MapsFragment()
         }
     }
 }

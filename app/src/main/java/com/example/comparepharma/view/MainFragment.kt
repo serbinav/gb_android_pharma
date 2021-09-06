@@ -1,7 +1,6 @@
 package com.example.comparepharma.view
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -21,20 +20,17 @@ import androidx.lifecycle.Observer
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.MainFragmentBinding
 import com.example.comparepharma.model.AppState
-import com.example.comparepharma.service.Constants
 import com.example.comparepharma.model.data.MedicineCost
+import com.example.comparepharma.utils.*
 import com.example.comparepharma.viewmodel.MainViewModel
 import java.io.IOException
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
+
     private var _binding: MainFragmentBinding? = null
     private val binding
         get() = _binding!!
@@ -91,7 +87,7 @@ class MainFragment : Fragment() {
                     showRationaleDialog()
                 }
                 else -> {
-                    requestPermission()
+                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 }
             }
         }
@@ -160,7 +156,7 @@ class MainFragment : Fragment() {
                     Constants.MAX_RESULT
                 )
                 binding.floatingActionButton.post {
-                    showAddressDialog(addresses.first().getAddressLine(0), location)
+                    showAddressDialog(addresses.first().getAddressLine(0))
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -168,24 +164,18 @@ class MainFragment : Fragment() {
         }.start()
     }
 
-    private fun showAddressDialog(address: String, location: Location) {
+    private fun showAddressDialog(address: String) {
         activity?.let {
-            AlertDialog.Builder(it)
-                .setTitle(R.string.dialog_address_title)
-                .setMessage(address)
-                .setPositiveButton(R.string.dialog_address_get_apteka) { _, _ ->
-                    openMapFragment()
-                }
-                .setNegativeButton(R.string.dialog_button_close) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+            DialogAlert(it, getString(R.string.dialog_address_title), address)
+                .showDialogAlertWithPositiveButton(
+                    R.string.dialog_address_get_apteka,
+                    R.string.dialog_button_close
+                ) { openMapFragment() }
         }
     }
 
     private fun openDetailsFragment(cost: MedicineCost) {
-        requireActivity().supportFragmentManager.apply {
+        with(requireActivity().supportFragmentManager) {
             beginTransaction()
                 .add(
                     R.id.container,
@@ -202,11 +192,11 @@ class MainFragment : Fragment() {
     }
 
     private fun openMapFragment() {
-        requireActivity().supportFragmentManager.apply {
+        with(requireActivity().supportFragmentManager) {
             beginTransaction()
                 .add(
                     R.id.container,
-                    MapsFragment.newInstance()
+                    MapsFragment()
                 )
                 .addToBackStack("")
                 .commitAllowingStateLoss()
@@ -215,17 +205,11 @@ class MainFragment : Fragment() {
 
     private fun showRationaleDialog() {
         activity?.let {
-            AlertDialog.Builder(it)
-                .setTitle(R.string.dialog_rationale_title)
-                .setMessage(R.string.dialog_message)
-                .setPositiveButton(R.string.dialog_give_access) { _, _ ->
-                    requestPermission()
-                }
-                .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+            DialogAlert(it, R.string.dialog_rationale_title, R.string.dialog_message)
+                .showDialogAlertWithPositiveButton(
+                    R.string.dialog_give_access,
+                    R.string.dialog_decline
+                ) { requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION) }
         }
     }
 
@@ -243,30 +227,20 @@ class MainFragment : Fragment() {
 
     private fun showDialog(title: String, message: String) {
         activity?.let {
-            AlertDialog.Builder(it)
-                .setTitle(title)
-                .setMessage(message)
-                .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+            DialogAlert(it, title, message)
+                .showBaseDialogAlert(R.string.dialog_decline)
         }
     }
 
-    private fun requestPermission() {
-        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
     private fun loadListOfPharma() {
-        requireActivity().apply {
+        with(requireActivity()) {
             isDataSetAptekaRu = getPreferences(Context.MODE_PRIVATE)
                 .getBoolean(Constants.IS_APTEKA_RU_KEY, true)
         }
     }
 
     private fun saveListOfPharma() {
-        requireActivity().apply {
+        with(requireActivity()) {
             getPreferences(Context.MODE_PRIVATE).edit {
                 putBoolean(Constants.IS_APTEKA_RU_KEY, isDataSetAptekaRu)
                 apply()

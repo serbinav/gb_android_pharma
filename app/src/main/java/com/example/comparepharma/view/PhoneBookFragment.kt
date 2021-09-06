@@ -1,7 +1,6 @@
 package com.example.comparepharma.view
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +10,13 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.comparepharma.BuildConfig
 import com.example.comparepharma.R
 import com.example.comparepharma.databinding.PhoneBookFragmentBinding
 import com.example.comparepharma.model.ContactState
+import com.example.comparepharma.utils.DialogAlert
+import com.example.comparepharma.utils.hide
+import com.example.comparepharma.utils.show
 import com.example.comparepharma.viewmodel.PhoneBookViewModel
 
 class PhoneBookFragment : Fragment() {
@@ -31,7 +34,7 @@ class PhoneBookFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = PhoneBookFragmentBinding.inflate(inflater, container, false)
         binding.contactList.adapter = adapter
         return binding.root
@@ -43,6 +46,8 @@ class PhoneBookFragment : Fragment() {
         viewModel.contacts.observe(viewLifecycleOwner) {
             renderData(it)
         }
+        binding.buildType.text =
+            String.format(getString(R.string.build_type_output), BuildConfig.MY_BUILD_TYPE)
         checkPermission()
     }
 
@@ -67,20 +72,14 @@ class PhoneBookFragment : Fragment() {
                     it,
                     Manifest.permission.READ_CONTACTS
                 ) == PackageManager.PERMISSION_GRANTED -> {
-                    getContacts()
+                    viewModel.getContacts()
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS) -> {
-                    AlertDialog.Builder(it)
-                        .setTitle(R.string.dialog_read_contacts_title)
-                        .setMessage(R.string.dialog_message)
-                        .setPositiveButton(R.string.dialog_give_access) { _, _ ->
-                            requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
-                        }
-                        .setNegativeButton(R.string.dialog_decline) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .create()
-                        .show()
+                    DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
+                        .showDialogAlertWithPositiveButton(
+                            R.string.dialog_give_access,
+                            R.string.dialog_decline
+                        ) { requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS) }
                 }
                 else -> requestPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
@@ -90,31 +89,17 @@ class PhoneBookFragment : Fragment() {
     private val requestPermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                getContacts()
+                viewModel.getContacts()
             } else {
-                context.let {
-                    AlertDialog.Builder(it)
-                        .setTitle(R.string.dialog_read_contacts_title)
-                        .setMessage(R.string.dialog_message)
-                        .setNegativeButton(R.string.dialog_button_close) { dialog, _ -> dialog.dismiss() }
-                        .create()
-                        .show()
+                context?.let {
+                    DialogAlert(it, R.string.dialog_read_contacts_title, R.string.dialog_message)
+                        .showBaseDialogAlert(R.string.dialog_button_close)
                 }
             }
         }
 
-    private fun getContacts() {
-        viewModel.getContacts()
-    }
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            PhoneBookFragment()
     }
 }
